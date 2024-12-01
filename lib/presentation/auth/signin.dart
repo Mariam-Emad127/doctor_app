@@ -132,8 +132,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                    InkWell(onTap:()async{
                     // BlocConsumer<AuthCubit>()
-   await AuthCubit().createUserWithEmailAndPassword(email: _email.text.trim(),
-    password: _password.text.trim(), username: _username.text.trim(), );
+   await AuthCubit().createUserWithEmailAndPassword(email: _email.text.trim(), password: _password.text.trim(),
+     username: _username.text.trim(), );
 
    Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>Loginin()) );
 

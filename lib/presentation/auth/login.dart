@@ -26,10 +26,9 @@ class _LogininState extends State<Loginin> {
   Widget build(BuildContext context) {
     return   BlocConsumer<AuthCubit, AuthState>(
 
-     // builder: (BuildContext context,   state) {  },
       listener: (BuildContext context,  state) {
       if (state is AuthSucess) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) =>   HomeScreen(),
@@ -65,83 +64,94 @@ class _LogininState extends State<Loginin> {
            ),
          );
        }else {
-         return Scaffold(
-           body: Form(
-             key: _formKey,
-             child: Center(
-               child: Column(
+         return  Scaffold(
+             body:  Form(
+               key: _formKey,
+               child: Center(
+                 child:SingleChildScrollView(
 
-                 children: [
-                   SizedBox(height: 300,),
-                   //Center(child:
-                   SvgPicture.asset(
-                       "assest/medical-records.svg", color: Color(0xFF2260FF)),
-                   Textformfeild(controller: _email,
-                     hintText: "enter your email",
-                     picon: Icon(Icons.email),
-                     textInputType: TextInputType.text,
-                     isPass: isPass,),
-                   Textformfeild(controller: _password,
-                     hintText: "enter your password",
-                     sicon: IconButton(icon: Icon(
-                       isPass == false ? Icons.visibility_off : Icons
-                           .visibility,),
-                       onPressed: () {
-                         // isPass==false ? true :false;
-                         setState(() {
-                           isPass = !isPass; //? true :false;
-
-                         });
-                       },),
-                     textInputType: TextInputType.text,
-                     isPass: isPass,),
-                   SizedBox(height: 30,),
-                   InkWell(onTap: ()async{
-                     // BlocConsumer<AuthCubit>()
-                     await AuthCubit().SignInWithEmailAndPassword(email: _email.text.trim(),
-                       password: _password.text.trim() , );
-
-                     Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>HomeScreen()) );
-
-                   } , child: Button_icon(title: "Login")),
-                   SizedBox(height: 150,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     children: [
-                       Container(
-                         padding: const EdgeInsets.symmetric(vertical: 8),
-                         child: const Text(
-                           'Dont have an account?',
-                         ),
-                       ),
-                       GestureDetector(
-                         onTap: () =>
-                             Navigator.of(context).push(
-                               MaterialPageRoute(
-                                 builder: (context) => const SignUp(),
-                               ),
-                             ),
-                         child: Container(
+                child: Column(
+           
+                   children: [
+                     SizedBox(height: 300,),
+                     //Center(child:
+                     SvgPicture.asset(
+                         "assest/medical-records.svg", color: Color(0xFF2260FF)),
+                     Textformfeild(controller: _email,
+                       hintText: "enter your email",
+                       picon: Icon(Icons.email),
+                       textInputType: TextInputType.text,
+                       isPass: isPass,),
+                     Textformfeild(controller: _password,
+                       hintText: "enter your password",
+                       sicon: IconButton(icon: Icon(
+                         isPass == false ? Icons.visibility_off : Icons
+                             .visibility,),
+                         onPressed: () {
+                           // isPass==false ? true :false;
+                           setState(() {
+                             isPass = !isPass; //? true :false;
+           
+                           });
+                         },),
+                       textInputType: TextInputType.text,
+                       isPass: isPass,),
+                     SizedBox(height: 30,),
+                     InkWell(onTap: ()async{
+                       if (_formKey.currentState!.validate()) {
+                         final email =
+                         _email.text.trim();
+                         final password =
+                         _password.text.trim();
+           
+                         context
+                             .read<AuthCubit>().SignInWithEmailAndPassword(email: email,password: password,  );
+                       }
+                       // await AuthCubit().SignInWithEmailAndPassword(email: _email.text.trim(),
+                       //   password: _password.text.trim() , );
+                       //
+                       // Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>HomeScreen()) );
+           
+                     } , child: Button_icon(title: "Login")),
+                     SizedBox(height: 150,),
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         Container(
                            padding: const EdgeInsets.symmetric(vertical: 8),
                            child: const Text(
-                             ' Signup.',
-                             style: TextStyle(
-                               fontWeight: FontWeight.bold,
+                             'Dont have an account?',
+                           ),
+                         ),
+                         GestureDetector(
+                           onTap: () =>
+                               Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                   builder: (context) => const SignUp(),
+                                 ),
+                               ),
+                           child: Container(
+                             padding: const EdgeInsets.symmetric(vertical: 8),
+                             child: const Text(
+                               ' Signup.',
+                               style: TextStyle(
+                                 fontWeight: FontWeight.bold,
+                               ),
                              ),
                            ),
                          ),
-                       ),
-                     ],
-                   ),
-
-
-                 ],
-
+                       ],
+                     ),
+           
+           
+                   ],
+           
+                 ),
                ),
              ),
+           
+           
            ),
-
-
          );
        }
       },

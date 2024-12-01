@@ -8,62 +8,60 @@ import 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState>{
   AuthCubit():super (AuthInitial());
 
-  Future<void>  createUserWithEmailAndPassword({required String email,
+
+  Future<void> createUserWithEmailAndPassword({
+    required String email,
     required String password,
     required String username,
+  }) async {
+    emit(AuthLoading()); // Emitting loading state
+    String res = "success"; // Default result message
 
-  })async {
-    emit(AuthLoading());
-
-    String res="sucsess";
     try {
-      if (email.isNotEmpty ||
-          password.isNotEmpty ||
-          username.isNotEmpty
-
-      ){
-
-        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      // Check if any of the fields are empty
+      if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty) {
+        // Create user with Firebase Authentication
+        final UserCredential credential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
 
-        print(credential.user!.uid);
+        print('User ID: ${credential.user!.uid}'); // Print UID for debugging
 
-        await FirebaseFirestore.instance.collection( "users").doc(credential.user!.uid).set(
-           {
-           "username":username,
-            "uid":credential.user!.uid,
-           "email": email,
-          //  "bio": bio,
-          //  "photoUrl":photoUrl,
-          //  "followers": [],
-          //  "following": [],
-          //
-          //
-          //
-            }
-           // user.toJson()
-        );
+        // Save additional user data in Firestore
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(credential.user!.uid)
+            .set({
+          "username": username,
+          "uid": credential.user!.uid,
+          "email": email,
+          // Add other fields if needed
+        });
 
-        res = "success";
-      }}
-    on FirebaseAuthException catch (e) {
+        emit(AuthSucess()); // Emit success state
+      } else {
+        throw Exception('All fields are required.');
+      }
+    } on FirebaseAuthException catch (e) {
+      // Handle FirebaseAuth-specific errors
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
+        emit(AuthError('The password provided is too weak.'));
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
-
+        emit(AuthError('The account already exists for that email.'));
+      } else {
+        print(e.message);
+        emit(AuthError(e.message ?? 'An unknown error occurred.'));
       }
-
-      emit(AuthSucess());
     } catch (e) {
+      // Handle general errors
+      print('Error: $e');
       emit(AuthError(e.toString()));
-      print(e);
     }
-  //  return res;
   }
-
 
 
   Future<void> SignInWithEmailAndPassword({required String email,required String password})async {
@@ -75,7 +73,6 @@ class AuthCubit extends Cubit<AuthState>{
         password: password,
       );
 
-
       emit(AuthSucess());
       res = "success";
     } catch (e) {
@@ -85,7 +82,6 @@ class AuthCubit extends Cubit<AuthState>{
     }
    // return res;
   }
-
 
 
 
