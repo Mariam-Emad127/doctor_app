@@ -62,4 +62,36 @@ emit(ProfileSucess());
   }
 
 
+  Future<String> uploadProfileImageToSupabas({required File file, required String fileName,required String Uid})
+  async {
+    //Post ?post;
+    //String postId;
+    final supabase = Supabase.instance.client;
+    try {
+      emit(ProfieLoading());
+      // Upload the file to the Supabase storage bucket
+      final response = await supabase.storage.from("Doctor").upload("$fileName/", file);
+      if (response != null) {
+        print('Image uploaded successfully');
+      }
+      else {
+        print('Errorrrrrrr');
+      }
+
+      final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
+      print("File uploaded successfully: $publicUrl");
+      String docId=const Uuid().v1();
+      FirebaseFirestore.instance.collection( "users").doc(Uid).update({"photoUrl":publicUrl});// .collection("photourl").doc().set( {"photoUrl":publicUrl});
+      emit(ProfileSucess( ));
+      return publicUrl;
+    }
+    catch (e) {
+      emit(ProfileError(e.toString()));
+      print("Error uploading to Supabase: $e");
+      return "Error";
+    }
+
+  }
+
+
 }

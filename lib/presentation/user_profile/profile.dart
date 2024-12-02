@@ -5,6 +5,7 @@ import 'package:doctor_app/presentation/social_screen/controller/post_state.dart
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_state.dart';
+import 'package:doctor_app/presentation/widget/circularProgress.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,14 +47,7 @@ class _ProfileState extends State<Profile> {
     return BlocConsumer<ProfileCubit, ProfileState>(
         listener: (BuildContext context, state) {
       if (state is postLoading) {
-        Scaffold(
-          body: Padding(
-            padding: EdgeInsets.all(10.0),
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        );
+    CircularProgress();
       } else if (state is postError) {
         Scaffold(
           body: Column(
@@ -89,7 +83,7 @@ class _ProfileState extends State<Profile> {
                   }
                   ;
 
-                  postCubit().uploadProfileImageToSupabase(
+                  ProfileCubit().uploadProfileImageToSupabas(
                       fileName: "prfelol",
                       file: file!,
                       Uid: FirebaseAuth.instance.currentUser!.uid);

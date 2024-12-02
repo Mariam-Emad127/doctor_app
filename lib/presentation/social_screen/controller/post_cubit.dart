@@ -92,7 +92,7 @@ class postCubit extends Cubit<postState> {
   // },
   // ),
   //);
-  Future<String> uploadProfileImageToSupabase({required File file, required String fileName,required String Uid})
+  Future<String> uploadPostImageToSupabase({required File file, required String fileName,required String Uid})
   async {
    Post ?post;
    //String postId;

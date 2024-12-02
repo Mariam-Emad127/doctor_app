@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Comment{
  final String postId;
  final String text;
@@ -19,6 +21,14 @@ class Comment{
 
    //profImage: profImage,
  };
+factory Comment.fromjson(DocumentSnapshot <Map<String,dynamic>>json){
+  final data=json.data();
+  return Comment(
+      postId:data!["postId"],
+      text: data["text"],
+      uid:data["uid"], name: data["username"],
+      profilePic: data["photoUrl"]);
 
+}
 
 }

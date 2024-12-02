@@ -27,14 +27,7 @@ class UserModed {
   };
   //static UserfromSnap (DocumentSnapshot snap){
   factory UserModed.fromjson( DocumentSnapshot<  Map<String,dynamic>>json){
-//final dat =json.data();
-// return UserModed(
-//     email: json.data()!["email"],
-//     uid:  json.data()!["uid"],
-//     photoUrl: json.data()!["photoUrl"]??"" ,
-//     username: json.data()!["username"]);
 
-   // factory UserModed.fromjson(DocumentSnapshot<Map<String, dynamic>> json) {
       final data = json.data() ;
       return UserModed(
         email: data!["email"]  ,
@@ -44,14 +37,6 @@ class UserModed {
       );
     }
 
-    // var snapshot=snap.data() as  Map<String,dynamic>;
-   //  return User(
-   //      email: snapshot["email"]??"",
-   //      uid: snapshot["uid"]??"",
-   //      photoUrl: snapshot["photoUrl"]??"",
-   //      username: snapshot["username"]??"",
-   //
-   //  );
 
 
   }
