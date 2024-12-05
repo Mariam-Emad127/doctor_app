@@ -12,28 +12,34 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 class postCubit extends Cubit<postState> {
   postCubit() : super(postInitial());
 
-  Future<void> uploadPost(String description,
-      //Uint8List? file,
-      //File ?file,
-      String uid,
-      String username,) async {
+  Future<void> uploadPost(String description, String uid,
+      String postId
+      ,String ?photoUrl
+      //,String username
+      ) async {
+    //String photoUrl,
     try {
       emit(postLoading());
-      String postId = Uuid().v4();
-      Post? post;
-      FirebaseFirestore.instance
+        FirebaseFirestore.instance
           .collection("post")
-          .doc(postId)
-          .set(post!.toJson());
-      emit(postSucess());
+          .doc(postId).set(
+          {
+        "description":description,
+        "uid":uid,
+        "postId":postId,
+            "datePublished":DateTime.now(),
+            "photoUrl":photoUrl  ??  "",
+           // "username":
+          //FirebaseFirestore.instance.collection( "users").doc(uid)..get().
+      });
+       emit(postSucess());
     } catch (e) {
       emit(postError(e.toString()));
       print(e.toString());
     }
   }
 
-  // Future<void>getPost(){}
-  // Future<void>likePost(){}
+
   Future<void> DelletePost(String postId) async {
     try {
       emit(postLoading());
@@ -92,10 +98,9 @@ class postCubit extends Cubit<postState> {
   // },
   // ),
   //);
-  Future<String> uploadPostImageToSupabase({required File file, required String fileName,required String Uid})
+  Future<String> uploadPostImageToSupabase({required File file, required String fileName,required String postId })
   async {
-   Post ?post;
-   //String postId;
+
     final supabase = Supabase.instance.client;
     try {
       emit(postLoading());
@@ -110,8 +115,8 @@ class postCubit extends Cubit<postState> {
 
       final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
       print("File uploaded successfully: $publicUrl");
-      String docId=const Uuid().v1();
-      FirebaseFirestore.instance.collection( "users").doc(Uid).update({"photoUrl":publicUrl});// .collection("photourl").doc().set( {"photoUrl":publicUrl});
+      //String postId=const Uuid().v1();
+     FirebaseFirestore.instance.collection( "post").doc(postId).update({"photoUrl":publicUrl});// .collection("photourl").doc().set( {"photoUrl":publicUrl});
       emit(postSucess( ));
       return publicUrl;
     }
@@ -124,72 +129,28 @@ class postCubit extends Cubit<postState> {
   }
 
 
-
-
- Future<Map<String, String>> getData()async{
-    String postUrl="";
-    String username="";
+ //Future<Map<String, String>>
+ getData()async{
+   String postUrl="";
+   String username="";
     try{
       emit(postLoading());
-      var user=await FirebaseFirestore.instance.collection( "users").doc(FirebaseAuth.instance.currentUser!.uid).get();
-      username=await user.data()!["username"];
-      postUrl =await user.data()!["photoUrl"];
-      print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-      print(postUrl);
-      print(username);
+      var user=await FirebaseFirestore.instance.collection( "post").snapshots();//where( "uid"=Uid).get();
+      // username=await user.data()!["username"];
+      // postUrl =await user.data()!["photoUrl"];
+      // print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+      // print(postUrl);
+      // print(username);
 
      }catch(h){
       emit(postError(h.toString()));
       print("2222222222222222222222222${h}");}
-    return {"username": username, "postUrl": postUrl};
+    //return {"username": username, "postUrl": postUrl};
   }
 
 }
 
 
-
- //
- //  async{
- // final picker = ImagePicker();
- // final imageFile = await picker.pickImage(
- // source: ImageSource.gallery,
- // maxWidth: 300,
- // maxHeight: 300,
- // );
- // if (imageFile == null) {
- // print( "null image");
- // }
- //    try {
- //      final bytes = await imageFile?.readAsBytes();
- //      final fileExt = imageFile!.path.split('.').last;
- //      final session = Supabase.instance.client.auth.currentSession;
- //      final user = session?.user;
- //      final fileName = '${DateTime.now().toIso8601String()}.$fileExt';
- //      //final filePath = '${ FirebaseAuth.instance.currentUser!.uid}/$fileName';
- //
- //      await Supabase.instance.
- //      //SupabaseInstance()
- //          //.supabase
- //          client
- //          .storage
- //          .from('Doctor')
- //          .uploadBinary(
- //         "profile",
- //        bytes!,
- //        fileOptions: FileOptions(contentType: imageFile.mimeType),
- //      );
- //
- //      final imageUrlResponse = await Supabase.instance.client.storage
- //          .from('Doctor')
- //          .createSignedUrl("profile", 60 * 60 * 24 * 365 * 10);
- //    } on StorageException catch (e) {
- //     // logger.d('😇upload error: $e');
- //      print(e);
- //    }
- //  }
-
-
- //  }
 File? image;
   ImagePicker ?imagePicker;
   void pickImage()async{
@@ -224,3 +185,13 @@ File? image;
   // }
 
 //}
+
+
+
+
+
+
+
+
+// Future<void>getPost(){}
+// Future<void>likePost(){}

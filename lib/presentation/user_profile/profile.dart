@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:doctor_app/core/utils/string.dart';
-import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
-import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
+ import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_state.dart';
@@ -21,9 +20,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String postUrl = "";
-  String username = "";
-  File? file;
+   File? file;
   UserModed ?user;
   @override
   void initState() {
@@ -82,17 +79,16 @@ class _ProfileState extends State<Profile> {
                     file = File(pickfile.path);
                   }
                   ;
-
+                //  String fileName = file!.split('/').last;
                   ProfileCubit().uploadProfileImageToSupabas(
-                      fileName: "prfelol",
+                      fileName:"profile/${file!.path.split( "/").last} ",//"pppp",  //,"file!.path ,
                       file: file!,
                       Uid: FirebaseAuth.instance.currentUser!.uid);
                 },
                 child: CircleAvatar(
                   radius: 50,
                   backgroundImage: NetworkImage(user!.photoUrl??unknowmimage)
-                     // postUrl==null ? unknowmimage  : postUrl),
-                ),
+                 ),
               ),
             ),
             SizedBox(height: 20),

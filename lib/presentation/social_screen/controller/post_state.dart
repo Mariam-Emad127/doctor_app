@@ -12,6 +12,6 @@ class postInitial extends postState {}
 class postLoading extends postState {}
 
 class postSucess extends postState {
-    //Post post;
-  postSucess();
+    Post? post;
+ // postSucess();
 }
