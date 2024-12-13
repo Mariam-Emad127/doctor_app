@@ -38,7 +38,12 @@ class MyApp extends StatelessWidget {
       
       providers: [
         BlocProvider<AuthCubit>(create:  (context)=>AuthCubit( )),
-        BlocProvider<postCubit>(create:  (context)=>postCubit()),
+        BlocProvider<postCubit>(create:  (context)=>postCubit() ),
+        // BlocProvider(
+        //     create: (context) => postCubit(
+        //        // postRepository: FirebasePostRepository()
+        //     )..add(getData())
+        // ),
         BlocProvider<ProfileCubit>(create:  (context)=>ProfileCubit())
 
       ],

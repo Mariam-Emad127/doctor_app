@@ -1,12 +1,15 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
-import 'package:doctor_app/presentation/user_profile/data/user.dart';
+
+
+
+
 class ProfileCubit extends Cubit<ProfileState>{
   ProfileCubit():super(ProfileInitial());
 
@@ -40,28 +43,42 @@ class ProfileCubit extends Cubit<ProfileState>{
 
   }
 
-
-   Future<UserModed> getUserData( )async{
+  Future<UserModed> getUserData( )async{
 //String email
-     UserModed ?userData;
+   UserModed? userData;
     try{
       emit(ProfieLoading());
       var user=await FirebaseFirestore.instance.collection( "users").get();
-     // .where("email",isEqualTo: email).get();
-      userData=await user.docs.map((e) => UserModed.fromjson(e)) .single ;
+      // .where("email",isEqualTo: email).get();
+       userData=await user.docs.map((e) => UserModed.fromjson(e)) .single ;
 
 
       print(userData);
       print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-emit(ProfileSucess());
+      emit(ProfileSucess());
     }catch(h){
       emit(ProfileError(h.toString()));
       print("2222222222222222222222222${h}");}
-    return userData !;
+    return userData!  ;
 
   }
 
 
+//   Future<model.UserModed> getUserData( )async{
+// //String email
+//     UserModed ?userData;
+//
+//       var userm=await FirebaseFirestore.instance.collection( "users").get();
+//       // .where("email",isEqualTo: email).get();
+//       //  userData=await user.docs.map((e) => UserModed.fromjson(e)) .single ;
+//
+//       return model.UserModed.fromjson(userm);
+//
+//
+//
+//
+//
+//   }
   Future<String> uploadProfileImageToSupabas({required File file, required String fileName,required String Uid})
   async {
     //Post ?post;

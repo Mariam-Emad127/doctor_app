@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModed {
@@ -26,7 +24,7 @@ class UserModed {
 
   };
   //static UserfromSnap (DocumentSnapshot snap){
-  factory UserModed.fromjson( DocumentSnapshot<  Map<String,dynamic>>json){
+  factory UserModed.fromjson(  DocumentSnapshot<  Map<String,dynamic>>json){
 
       final data = json.data() ;
       return UserModed(

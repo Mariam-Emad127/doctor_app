@@ -23,11 +23,11 @@ class _AddingPostState extends State<AddingPost> {
   TextEditingController postController = TextEditingController();
   File? file;
   bool isLoading = true;
-  UserModed ?user;
+late  UserModed  user;
   fettchUser()async{
     var userData=await ProfileCubit().getUserData();
     setState(() {
-      user=  userData;
+      user= userData ;
 
     });
   }
@@ -59,18 +59,20 @@ class _AddingPostState extends State<AddingPost> {
             actions: [
               InkWell(
                   onTap: () {
-                    // postCubit().uploadPostImageToSupabase(
-                    //     file: file!,
-                    //     fileName: "posts/${file!.path.split("/").last} ",
-                    //     postId: postId);
-                    setState(() {});
+                    if (file!=null){
+                    postCubit().uploadPostImageToSupabase(
+                        file: file!,
+                        fileName: "posts/${file!.path.split("/").last} ",
+                        postId: postId);
+                    setState(() {});}
 
                     postCubit().uploadPost(
                         postController.text.trim(),
                         FirebaseAuth.instance.currentUser!.uid,
                         postId,
                         file.toString() ,
-                       //user!.username
+                       user.username,
+                        user.photoUrl.toString() ==null?"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg" :  user.photoUrl.toString()
 
                     );
 
@@ -103,7 +105,7 @@ class _AddingPostState extends State<AddingPost> {
                 //  ),
                 Card(
                     child: file == null
-                        ? Image.network(unknowmimage)
+                        ? Image.network( "https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg",height: 300,)
                         : Image.file(file!)),
 
                 //network( file.path),

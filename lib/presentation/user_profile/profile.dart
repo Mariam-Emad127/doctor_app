@@ -2,13 +2,14 @@ import 'dart:io';
 import 'package:doctor_app/core/utils/string.dart';
  import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
-import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
+ import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_state.dart';
 import 'package:doctor_app/presentation/widget/circularProgress.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+
 
 class Profile extends StatefulWidget {
   final String uid;
@@ -21,7 +22,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
    File? file;
-  UserModed ?user;
+  UserModed? user;
   @override
   void initState() {
     super.initState();
@@ -31,12 +32,12 @@ class _ProfileState extends State<Profile> {
 
   }
 
-  Future<void> fetchUser() async {
-    var userData = await ProfileCubit().getUserData();
-    setState(() {
-      user = userData;
-    });
-  }
+   Future<void> fetchUser() async {
+     var userData = await ProfileCubit().getUserData();
+     setState(() {
+       user = userData;
+     });
+   }
 
 
   @override

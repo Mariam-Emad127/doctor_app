@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
@@ -10,42 +9,42 @@ import '../data/comment_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class postCubit extends Cubit<postState> {
+  late List<Post> postm;
+
   postCubit() : super(postInitial());
 
-  Future<void> uploadPost(String description, String uid,
-      String postId
-      ,String ?photoUrl
-      //,String username
-      ) async {
-    //String photoUrl,
+  Future<void> uploadPost(
+    String ?description,
+    String uid,
+    String postId,
+    String? photoUrl,
+    String username,
+    String profImage,
+  ) async {
     try {
       emit(postLoading());
-        FirebaseFirestore.instance
-          .collection("post")
-          .doc(postId).set(
-          {
-        "description":description,
-        "uid":uid,
-        "postId":postId,
-            "datePublished":DateTime.now(),
-            "photoUrl":photoUrl  ??  "",
-           // "username":
-          //FirebaseFirestore.instance.collection( "users").doc(uid)..get().
+      FirebaseFirestore.instance.collection("post").doc(postId).set({
+        "description": description??"",
+        "uid": uid,
+        "postId": postId,
+        "datePublished": DateTime.now(),
+        "photoUrl": photoUrl??"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg"  ,
+        "username": username,
+        "profImage": profImage
       });
-       emit(postSucess());
+      emit(postSucess(posts: postm));
     } catch (e) {
       emit(postError(e.toString()));
       print(e.toString());
     }
   }
 
-
   Future<void> DelletePost(String postId) async {
     try {
       emit(postLoading());
       await FirebaseFirestore.instance.collection('post').doc(postId).delete();
 
-      emit(postSucess());
+      // emit(postSucess());
     } catch (err) {
       emit(postError(err.toString()));
       // res = err.toString();
@@ -65,13 +64,12 @@ class postCubit extends Cubit<postState> {
           .collection("comment")
           .doc(commentId)
           .set(comment!.toJson());
-      emit(postSucess());
+      //emit(postSucess());
     } catch (e) {
       emit(postError(e.toString()));
       print(e.toString());
     }
   }
-
 
 //   Future<String>profileImage(String childname,Uint8List file,)async{
 //     final time=DateTime.now().microsecondsSinceEpoch;
@@ -88,110 +86,88 @@ class postCubit extends Cubit<postState> {
 // return downloadUrl;
 //   }
 
-  // final firebaseUser = FirebaseAuth.instance.currentUser;
-  //
-  // final response = await Supabase.instance.client.auth.api.createUser(
-  // AdminUserAttributes(
-  // email: firebaseUser.email,
-  // userMetadata: {
-  // 'firebaseUid': firebaseUser.uid,
-  // },
-  // ),
-  //);
-  Future<String> uploadPostImageToSupabase({required File file, required String fileName,required String postId })
-  async {
 
+  Future<String> uploadPostImageToSupabase(
+      {required File file,
+      required String fileName,
+      required String postId}) async {
     final supabase = Supabase.instance.client;
     try {
       emit(postLoading());
       // Upload the file to the Supabase storage bucket
-      final response = await supabase.storage.from("Doctor").upload("$fileName/", file);
+      final response =
+          await supabase.storage.from("Doctor").upload("$fileName/", file);
       if (response != null) {
         print('Image uploaded successfully');
-      }
-      else {
+      } else {
         print('Errorrrrrrr');
       }
 
-      final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
+      final publicUrl =
+          supabase.storage.from("Doctor").getPublicUrl("$fileName/");
       print("File uploaded successfully: $publicUrl");
       //String postId=const Uuid().v1();
-     FirebaseFirestore.instance.collection( "post").doc(postId).update({"photoUrl":publicUrl});// .collection("photourl").doc().set( {"photoUrl":publicUrl});
-      emit(postSucess( ));
+      FirebaseFirestore.instance.collection("post").doc(postId).update({
+        "photoUrl": publicUrl
+      }); // .collection("photourl").doc().set( {"photoUrl":publicUrl});
+      // emit(postSucess( ));
       return publicUrl;
-    }
-    catch (e) {
+    } catch (e) {
       emit(postError(e.toString()));
       print("Error uploading to Supabase: $e");
       return "Error";
     }
-
   }
 
+  //Future<Map<String, String>>
+  Future<List<Post>> getData() async {
+    //List< Post> ?posts;
 
- //Future<Map<String, String>>
- getData()async{
-   String postUrl="";
-   String username="";
-    try{
+    try {
       emit(postLoading());
-      var user=await FirebaseFirestore.instance.collection( "post").snapshots();//where( "uid"=Uid).get();
-      // username=await user.data()!["username"];
-      // postUrl =await user.data()!["photoUrl"];
-      // print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-      // print(postUrl);
-      // print(username);
+      var querySnapshot =
+          await FirebaseFirestore.instance.collection("post").get();
 
-     }catch(h){
+      var posts = await FirebaseFirestore.instance.collection("post").get();
+      postm = await posts.docs.map((e) => Post.fromJson(e)).toList();
+      print("mmpppppppppppppppppppmm");
+      emit(postSucess(posts: postm));
+      return postm!;
+    } catch (h) {
       emit(postError(h.toString()));
-      print("2222222222222222222222222${h}");}
-    //return {"username": username, "postUrl": postUrl};
+      print("555555555555552${h}");
+    }
+    return postm;
   }
-
 }
 
-
 File? image;
-  ImagePicker ?imagePicker;
-  void pickImage()async{
-    final pickfile=await ImagePicker(
-    ).pickImage(source: ImageSource.gallery);
+ImagePicker? imagePicker;
 
-  if(pickfile!=null){
-    image= File(pickfile.path);
+void pickImage() async {
+  final pickfile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-
+  if (pickfile != null) {
+    image = File(pickfile.path);
   }
+}
 
-
-  }
-
-  // Future<Uri> uploadPic() async {
-  //
-  //   //Get the file from the image picker and store it
-  //   XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //
-  //   //Create a reference to the location you want to upload to in firebase
-  //   Reference reference = _storage.ref().child("images/");
-  //
-  //   //Upload the file to firebase
-  //    UploadTask uploadTask = reference.putFile(file);
-  //
-  //   // Waits till the file is uploaded then stores the download url
-  //   Uri location = await uploadTask.downloadUrl;
-  //
-  //   //returns the download url
-  //   return location;
-  // }
+// Future<Uri> uploadPic() async {
+//
+//   //Get the file from the image picker and store it
+//   XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+//
+//   //Create a reference to the location you want to upload to in firebase
+//   Reference reference = _storage.ref().child("images/");
+//
+//   //Upload the file to firebase
+//    UploadTask uploadTask = reference.putFile(file);
+//
+//   // Waits till the file is uploaded then stores the download url
+//   Uri location = await uploadTask.downloadUrl;
+//
+//   //returns the download url
+//   return location;
+// }
 
 //}
-
-
-
-
-
-
-
-
-// Future<void>getPost(){}
-// Future<void>likePost(){}

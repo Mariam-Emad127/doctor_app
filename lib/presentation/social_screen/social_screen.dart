@@ -1,15 +1,13 @@
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
+import 'package:doctor_app/presentation/social_screen/wedgit/add_post.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/delete_post.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/react.dart';
-import 'package:doctor_app/presentation/social_screen/wedgit/textfeiledwedgit.dart';
-import 'package:doctor_app/presentation/user_profile/data/user.dart';
+  import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
-import 'package:doctor_app/presentation/user_profile/profile.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+ import 'package:doctor_app/presentation/widget/circularProgress.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'data/post_model.dart';
 
 class SocialScreen extends StatefulWidget {
@@ -18,145 +16,93 @@ class SocialScreen extends StatefulWidget {
   @override
   State<SocialScreen> createState() => _SocialScreenState();
 }
-
 class _SocialScreenState extends State<SocialScreen> {
-  String photoUrl = "";
-  String username = "";
-UserModed? user;
-Post? post;
-fettchUser()async{
-    var userData=await ProfileCubit().getUserData();
-  setState(() {
-    user=  userData;
-
-  });
+  UserModed? user;
+  fettchUser() async {
+    var userData = await ProfileCubit().getUserData();
+    setState(() {
+      user = userData;
+    });
   }
-  fetchpost()async{
-    var postData=await postCubit().getData();
-setState(() {
-  post=postData;
-});
-
-  }
-
-
-
   @override
   void initState() {
     super.initState();
     setState(() {});
     fettchUser();
-    fetchpost();
-    // fetchData();
+    BlocProvider.of<postCubit>(context).getData();
   }
-  //
-  // Future<void> fetchData() async {
-  //   final data = await postCubit().getData();
-  //   setState(() {
-  //     username = data["username"] ?? "Unknown";
-  //     postUrl = data["postUrl"] ?? "";
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<postCubit, postState>(
-      builder: (BuildContext context, state) {
-        return Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
-                  //height: 300,
-                  child: Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Profile(
-                                    uid: FirebaseAuth.instance.currentUser!.uid,
-                                  )));
-                        },
-                        child: CircleAvatar(
-                            radius: 16, backgroundImage: NetworkImage(user!.photoUrl.toString())),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      TextFeiledWedgit()
-                    ],
+    return Scaffold(body: BlocBuilder<postCubit, postState>(
+      builder: (context, state) {
+        if (state is postLoading) {
+          return CircularProgress();
+        } else if (state is postSucess) {
+          List<Post>? post = state.posts;
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 50,
                   ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  children: [
-                    CircleAvatar(
-                        radius: 16, backgroundImage: NetworkImage(user!.photoUrl.toString())),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(username),
-                    SizedBox(
-                      width: 250,
-                    ),
-                    DeletePost()
-                  ],
-                ),
-                // Container(
-                //   height: 300,
-                //   color: Colors.red,
-                // ),
+           AddPost(
+                    photoUrl: user!.photoUrl.toString(),
+                  ),
 
-              Card(
-                 // elevation: 50,
-                  shadowColor: Colors.black,
-                  color: Colors.white,//greenAccent[100],
-                  child: SizedBox(
-                    width: 400,
-                    height: 300,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.green[500],
-                            radius: 108,
-                            child:   CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                post!.photoUrl??""),
-                                  //"https://media.geeksforgeeks.org/wp-content/uploads/20210101144014/gfglogo.png"), //NetworkImage
-                              radius: 100,
-                            ), //CircleAvatar
-                          ), //CircleAvatar
-                          const SizedBox(
-                            height: 10,
-                          ), //SizedBox
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: post.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                      radius: 16,
+                                      backgroundImage: NetworkImage(
+                                          post[index].profImage.toString())),
 
-                          const Text(
-                            'GeeksforGeeks is a computer science portal for geeks  !!',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.green,
-                            ), //Textstyle
-                          ), //Text
-                      //SizedBox
-                        ],
-                      ), //Column
-                    ), //Padding
-                  ), //SizedBox
-                ), //Card
-                React()
-              ],
+                                  SizedBox(
+                                    width: 270,
+                                  ),
+                               DeletePost()
+
+
+                                ],
+                              ),
+                              (post[index].description.toString())!=null?
+                              Align(
+                                  alignment: Alignment.topLeft ,
+                                  child: Text("${post[index].description.toString()}",style: TextStyle(fontSize: 25),)):Text( ""),
+                             // (post[index].photoUrl.toString())??
+                              Container(
+                                   height: 370,
+                                 width:350,
+                                  child: Image.network(
+                          (post[index].photoUrl.toString() ) )),
+
+                        //       )//:Container(height: 2,
+                        //
+                        //          child: Image.network(
+                        // "https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg",height: 2,)
+                        //
+                        //   ),
+                              React()
+                            ],
+                          );
+                        }),
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
+          );
+        }
+
+        return Container(child: Center(child: Text("Error")));
       },
-    );
+    ));
   }
 }
