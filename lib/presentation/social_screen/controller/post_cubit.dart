@@ -28,7 +28,7 @@ class postCubit extends Cubit<postState> {
         "uid": uid,
         "postId": postId,
         "datePublished": DateTime.now(),
-        "photoUrl": photoUrl??"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg"  ,
+        "photoUrl": photoUrl,//??"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg"  ,
         "username": username,
         "profImage": profImage
       });
@@ -97,11 +97,11 @@ class postCubit extends Cubit<postState> {
       // Upload the file to the Supabase storage bucket
       final response =
           await supabase.storage.from("Doctor").upload("$fileName/", file);
-      if (response != null) {
-        print('Image uploaded successfully');
-      } else {
-        print('Errorrrrrrr');
-      }
+      // if (response != null) {
+      //   print('Image uploaded successfully');
+      // } else {
+      //   print('Errorrrrrrr');
+      // }
 
       final publicUrl =
           supabase.storage.from("Doctor").getPublicUrl("$fileName/");
@@ -139,18 +139,30 @@ class postCubit extends Cubit<postState> {
     }
     return postm;
   }
-}
 
 File? image;
 ImagePicker? imagePicker;
 
-void pickImage() async {
-  final pickfile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  void pickImage() async {
+    final pickfile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-  if (pickfile != null) {
-    image = File(pickfile.path);
+    if (pickfile != null) {
+      image = File(pickfile.path);
+    }
   }
+
 }
+//
+// File? image;
+// ImagePicker? imagePicker;
+//
+// void pickImage() async {
+//   final pickfile = await ImagePicker().pickImage(source: ImageSource.gallery);
+//
+//   if (pickfile != null) {
+//     image = File(pickfile.path);
+//   }
+// }
 
 // Future<Uri> uploadPic() async {
 //

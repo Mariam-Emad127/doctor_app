@@ -1,6 +1,5 @@
 import 'dart:io';
-import 'package:doctor_app/core/utils/string.dart';
-import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
+ import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,12 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
-
 import '../user_profile/presentation/controller/profile_cubit.dart';
 import 'data/post_model.dart';
 
 class AddingPost extends StatefulWidget {
-  AddingPost({super.key});
+const  AddingPost({super.key});
 
   @override
   State<AddingPost> createState() => _AddingPostState();
@@ -31,7 +29,7 @@ late  UserModed  user;
 
     });
   }
-
+  //
   picimage() async {
     var pickfile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
@@ -44,6 +42,7 @@ late  UserModed  user;
   String postId = Uuid().v4();
 @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     fettchUser();
   }
@@ -57,29 +56,50 @@ late  UserModed  user;
               'Add post',
             ),
             actions: [
-              InkWell(
+              BlocListener<postCubit,postState>(
+
+                  listener: (BuildContext context, state) {
+                    if(state is postSucess){
+
+
+                    } },
+                  child:   InkWell(
                   onTap: () {
                     if (file!=null){
                     postCubit().uploadPostImageToSupabase(
                         file: file!,
                         fileName: "posts/${file!.path.split("/").last} ",
                         postId: postId);
-                    setState(() {});}
+                    setState(() {});
 
                     postCubit().uploadPost(
                         postController.text.trim(),
                         FirebaseAuth.instance.currentUser!.uid,
                         postId,
-                        file.toString() ,
-                       user.username,
-                        user.photoUrl.toString() ==null?"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg" :  user.photoUrl.toString()
+                        file !=null?  file.toString():null ,
+                        user.username,
+                        user.photoUrl.toString() //==null?"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg" :  user.photoUrl.toString()
 
                     );
+                    postCubit().uploadPost(
+                        postController.text.trim(),
+                        FirebaseAuth.instance.currentUser!.uid,
+                        postId,
+                        file !=null?  file.toString():null ,
+                        user.username,
+                        user.photoUrl.toString() //==null?"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg" :  user.photoUrl.toString()
+
+                    );
+                    }
+
+
 
                     Navigator.pop(context);
                   },
-                  child: Text("Post   ",
-                      style: TextStyle(color: Colors.blueAccent, fontSize: 17)))
+
+                    child: Text("Post   ",
+                        style: TextStyle(color: Colors.blueAccent, fontSize: 17)),
+                  ))
             ],
           ),
           body: Padding(
@@ -115,13 +135,10 @@ late  UserModed  user;
                       child: TextButton(
                     onPressed: () async {
                       setState(() {});
+                     //postCubit().pickImage();
                       picimage();
                       setState(() {});
-                      // postCubit().uploadPostImageToSupabase(
-                      // fileName: "posts/${file!.path.split( "/").last} ",
-                      // file: file,
-                      //     postId: postId
-                      // );
+
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

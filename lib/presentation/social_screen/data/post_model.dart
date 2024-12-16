@@ -43,7 +43,7 @@ class Post{
  factory Post.fromJson( QueryDocumentSnapshot< Map<String, dynamic>> json) {
 
    return Post(
-      photoUrl: json['photoUrl']  ??"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg",
+      photoUrl: json['photoUrl']  ,//??"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg",
        description:json['description']??"",
        uid: json['uid'],
        username: json['username'] ,
@@ -72,7 +72,7 @@ Map<String,dynamic>toJson()=>{
   "postId": postId,
   "datePublished": DateTime.now(),
   //"postUrl": postUrl,
-  "photoUrl":photoUrl??"",
+  "photoUrl":photoUrl,
   "profImage": profImage,
    };
 
