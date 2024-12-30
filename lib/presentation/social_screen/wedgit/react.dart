@@ -1,20 +1,46 @@
+import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
+import 'package:doctor_app/presentation/social_screen/data/post_model.dart';
+import 'package:doctor_app/presentation/social_screen/wedgit/comment.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class React extends StatelessWidget {
-  const React({super.key});
+class React extends StatefulWidget {
+  final postId;
+  final Post? post;
+
+  React({super.key, this.postId, this.post});
+
+  @override
+  State<React> createState() => _ReactState();
+}
+
+class _ReactState extends State<React> {
+  bool ispressed = false;
 
   @override
   Widget build(BuildContext context) {
-    return  Row(children: <Widget>[
+    return Row(children: <Widget>[
       IconButton(
-          icon: Icon(Icons.favorite, color: Colors.red),
+          icon: ispressed == false
+              ? Icon(Icons.favorite, color: Colors.grey)
+              : Icon(Icons.favorite, color: Colors.red),
+          onPressed: () {
+            BlocProvider.of<postCubit>(context).likePost(widget.postId);
 
-          onPressed: () {}),
+            setState(() {
+
+            });
+            ispressed = !ispressed;
+
+          }),
       IconButton(
           icon: Icon(
             Icons.comment_outlined,
           ),
-          onPressed: () {}),
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => CommentScreen(postId: widget.postId,post: widget.post,)));
+          }),
       IconButton(
         icon: Icon(
           Icons.send,
@@ -23,11 +49,10 @@ class React extends StatelessWidget {
       ),
       Expanded(
           child: Align(
-            alignment: Alignment.bottomRight,
-            child: IconButton(
-                icon: const Icon(Icons.bookmark_border),
-                onPressed: () {}),
-          )),
+        alignment: Alignment.bottomRight,
+        child: IconButton(
+            icon: const Icon(Icons.bookmark_border), onPressed: () {}),
+      )),
     ]);
   }
 }

@@ -28,7 +28,7 @@ class AddPost extends StatelessWidget {
         ),
 
 
-              TextFeiledWedgit(),
+              TextFeiledWedgit( ),
 
  
       ],

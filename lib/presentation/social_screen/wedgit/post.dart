@@ -8,11 +8,11 @@
 // import '../data/post_model.dart';
 //
 // class PostScreen extends StatefulWidget {
-//  // final
+//   final Post post;
 //
 //  // final String profImage;
 //  // final String description; final String photoUrl;
-//  PostScreen({super.key, });
+//  PostScreen({super.key, required this.post, });
 //
 //   @override
 //   State<PostScreen> createState() => _PostScreenState();
@@ -32,17 +32,19 @@
 //   Widget build(BuildContext context) {
 //     return SizedBox(
 //       height: 500,
-//       child: ListView.builder(
-//           itemCount: post!.length,
-//           itemBuilder: (context, index) {
-//             return Column(
+//       // child: ListView.builder(
+//       //     itemCount: post!.length,
+//       //     itemBuilder: (context, index) {
+//             child: Column(
 //               children: [
 //                 Row(
 //                   children: [
 //                     CircleAvatar(
 //                         radius: 16,
 //                         backgroundImage: NetworkImage(
-//                             post![index].profImage.toString())),
+//                            // post![index].profImage.toString()
+//                         widget.post.photoUrl.toString()
+//                         )),
 //                     SizedBox(
 //                       width: 10,
 //                     ),
@@ -53,15 +55,15 @@
 //                     DeletePost()
 //                   ],
 //                 ),
-//                 Text("${post![index].description.toString()}"),
+//                 Text("${widget.post.description.toString()}"),
 //                 Container(
 //                     height: 200,
 //                     child: Image.network(
-//                         post![index].photoUrl.toString())),
+//                        widget.post.photoUrl.toString())),
 //                 React()
 //               ],
-//             );
-//           }),
+//             )
+//          // }),
 //     );
 //   }
 // }

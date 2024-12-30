@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Comment{
+class CommentModel{
  final String postId;
  final String text;
  final String uid;
  final String name;
- final String profilePic;
+ final String profImage;
+ //final  String postId;
+ final  DateTime datePublished;
 
- Comment({required this.postId,
+ CommentModel( {required this.postId,required this.datePublished,
     required this.text,
-    required this.uid, required this.name, required this.profilePic});
+    required this.uid, required this.name, required this.profImage});
 
  Map<String,dynamic>toJson()=>{
    "text" : text,
@@ -17,17 +19,22 @@ class Comment{
    "username": name,
    "postId": postId,
    "datePublished": DateTime.now(),
-   "profilepic": profilePic,
+   "profilepic": profImage,
 
    //profImage: profImage,
  };
-factory Comment.fromjson(DocumentSnapshot <Map<String,dynamic>>json){
-  final data=json.data();
-  return Comment(
-      postId:data!["postId"],
+factory CommentModel.fromjson(QueryDocumentSnapshot<Map<String,dynamic>>data){
+  //final data=json.data();
+  return CommentModel(
+      postId:data["postId"],
       text: data["text"],
       uid:data["uid"], name: data["username"],
-      profilePic: data["photoUrl"]);
+      profImage: data["profImage"],
+      //postId:data["required"],
+      datePublished: data["datePublished"].toDate()
+  );
+
+
 
 }
 

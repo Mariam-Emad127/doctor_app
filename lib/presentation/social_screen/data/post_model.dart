@@ -7,52 +7,41 @@ class Post{
     final  String ?photoUrl;
    final String username;
    final  String ?profImage;
-
-   // late  final  List<String> likes;
- late  final  DateTime datePublished;
+   final  List<String> likes;
+   final  DateTime datePublished;
+    final num? totalLikes;
  // late  final  String postUrl;
- //late  final  String comment;
+  //final List< String> comment;
 
-  Post(  {required this.description,
+  Post(   {
+    required this.description,
     required this.uid,
     required this.username,
-    //required this.likes,
+    required this.likes,
     required this.postId,
     required this.datePublished,
-    //required this.postUrl,
-    //required this.comment,
+    required this.totalLikes,
     required this.photoUrl,
     required this.profImage,
   }
       );
 
 
-  //
-  // static Post fromSnap (DocumentSnapshot snap){
-  //   var snapshot=snap.data() as  Map<String,dynamic>;
-  //   return Post(
-  //
-  //       email: snapshot["email"]??"",
-  //       uid: snapshot["uid"]??"",
-  //       photoUrl: snapshot["photoUrl"]??"",
-  //       username: snapshot["username"]??"",
-  //
-  //
-  //   );
 
- factory Post.fromJson( QueryDocumentSnapshot< Map<String, dynamic>> json) {
 
-   return Post(
-      photoUrl: json['photoUrl']  ,//??"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg",
+ factory Post.fromJson( QueryDocumentSnapshot< Map<String, dynamic>>json) {
+    return Post(
+      photoUrl: json['photoUrl']  ,
        description:json['description']??"",
        uid: json['uid'],
        username: json['username'] ,
-       //likes: likes,
        postId:json['postId'] ,
        datePublished: json['datePublished'].toDate() ,
-       profImage:json["profImage"]
-       //postUrl: json['postUrl'],
-   //    comment:   json['comment']
+       profImage:json["profImage"],
+       likes: List.from(json["like"]).map((e) => e.toString()).toList(),
+        totalLikes: json["totalLikes"]   ,
+      // json["likes"],
+        //comment:   json['comment']
    );
     // description = json['description']  ;
     // datePublished = json['datePublished'] ?? '';
@@ -68,7 +57,7 @@ Map<String,dynamic>toJson()=>{
   "description" :description,
   "uid": uid,
  // "username": username,
-  //"likes":likes,
+  "likes":likes,
   "postId": postId,
   "datePublished": DateTime.now(),
   //"postUrl": postUrl,

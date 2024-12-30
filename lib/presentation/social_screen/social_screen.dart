@@ -1,7 +1,9 @@
+import 'package:doctor_app/presentation/social_screen/adding_post.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/add_post.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/delete_post.dart';
+import 'package:doctor_app/presentation/social_screen/wedgit/post.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/react.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
@@ -18,19 +20,22 @@ class SocialScreen extends StatefulWidget {
 }
 class _SocialScreenState extends State<SocialScreen> {
   UserModed? user;
+ late List<Post>post;
   fettchUser() async {
     var userData = await ProfileCubit().getUserData();
     setState(() {
       user = userData;
     });
   }
+
+
   @override
   void initState() {
     super.initState();
     setState(() {});
     fettchUser();
-    BlocProvider.of<postCubit>(context).getData();
-  }
+     BlocProvider.of<postCubit>(context).getData();
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,10 @@ class _SocialScreenState extends State<SocialScreen> {
       builder: (context, state) {
         if (state is postLoading) {
           return CircularProgress();
-        } else if (state is postSucess) {
+        } else
+          if (state is postSucess) {
+
+
           List<Post?>post = state.posts;
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -64,7 +72,6 @@ class _SocialScreenState extends State<SocialScreen> {
                                       radius: 16,
                                       backgroundImage: NetworkImage(
                                           post[index]!.profImage.toString())),
-
                                   SizedBox(
                                     width: 270,
                                   ),
@@ -88,9 +95,14 @@ class _SocialScreenState extends State<SocialScreen> {
                                  )
 
                               ):SizedBox(),
-                              React()
-                            ],
+                              React(
+                              postId:state.posts[index].postId,
+                              post:state.posts[index],
+                              )
+                             ],
                           );
+
+                       //PostScreen(post:post[index]!);
                         }),
                   ),
                 ],

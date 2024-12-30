@@ -2,6 +2,7 @@ import 'package:doctor_app/presentation/Home_screen/HomeScreen.dart';
 import 'package:doctor_app/presentation/auth/controller/auth_cubit.dart';
 import 'package:doctor_app/presentation/auth/login.dart';
 import 'package:doctor_app/presentation/auth/signin.dart';
+import 'package:doctor_app/presentation/social_screen/controller/comment/comment_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
 import 'package:doctor_app/presentation/splash_screen/splashScreen.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
         //        // postRepository: FirebasePostRepository()
         //     )..add(getData())
         // ),
-        BlocProvider<ProfileCubit>(create:  (context)=>ProfileCubit())
+        BlocProvider<ProfileCubit>(create:  (context)=>ProfileCubit()),
+        BlocProvider<CommentCubit>(create:  (context)=>CommentCubit())
 
       ],
       child: MaterialApp(
