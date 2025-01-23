@@ -1,3 +1,4 @@
+import 'package:doctor_app/core/service/notification.dart';
 import 'package:doctor_app/presentation/auth/signin.dart';
 import 'package:doctor_app/presentation/auth/wedgit/iconButton.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +99,7 @@ class _LogininState extends State<Loginin> {
                        isPass: isPass,),
                      SizedBox(height: 30,),
                      InkWell(onTap: ()async{
-                       if (_formKey.currentState!.validate()) {
+                       if (_formKey.currentState!.validate())  {
                          final email =
                          _email.text.trim();
                          final password =
@@ -106,6 +107,8 @@ class _LogininState extends State<Loginin> {
            
                          context
                              .read<AuthCubit>().SignInWithEmailAndPassword(email: email,password: password,  );
+                               await NotificationServics().sendNotification( "gggggggggggggg",  "1234566");
+
                        }
                        // await AuthCubit().SignInWithEmailAndPassword(email: _email.text.trim(),
                        //   password: _password.text.trim() , );

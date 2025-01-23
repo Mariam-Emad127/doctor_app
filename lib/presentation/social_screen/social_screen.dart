@@ -1,10 +1,9 @@
-import 'package:doctor_app/presentation/social_screen/adding_post.dart';
-import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
+import 'package:doctor_app/core/utils/string.dart';
+ import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/add_post.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/delete_post.dart';
-import 'package:doctor_app/presentation/social_screen/wedgit/post.dart';
-import 'package:doctor_app/presentation/social_screen/wedgit/react.dart';
+ import 'package:doctor_app/presentation/social_screen/wedgit/react.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
 import 'package:doctor_app/presentation/widget/circularProgress.dart';
@@ -57,7 +56,7 @@ class _SocialScreenState extends State<SocialScreen> {
                     height: 50,
                   ),
            AddPost(
-                    photoUrl: user!.photoUrl.toString(),
+                    photoUrl: user?.photoUrl.toString()??AppStrings.unknowmimage,
                   ),
 
                   Expanded(

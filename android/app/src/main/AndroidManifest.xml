@@ -5,7 +5,7 @@
         android:label="doctor_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        >
+         >
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -24,6 +24,18 @@
               android:resource="@style/NormalTheme"
 
               />
+
+            <meta-data
+              android:name="com.onesignal.NotificationServiceExtension"
+              android:value="com.your.package.name.YourNotificationExtenderService" />
+
+             <meta-data
+               android:name="com.onesignal.default_notification_icon"
+               android:resource="@drawable/ic_stat_onesignal_default" />
+ 
+              <meta-data
+               android:name="com.onesignal.default_notification_channel_id"
+               android:value="YOUR_CHANNEL_ID" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

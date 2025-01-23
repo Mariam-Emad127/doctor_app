@@ -88,7 +88,7 @@ class _ProfileState extends State<Profile> {
                 },
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage(user!.photoUrl??unknowmimage)
+                  backgroundImage: NetworkImage(user!.photoUrl??AppStrings.unknowmimage)
                  ),
               ),
             ),

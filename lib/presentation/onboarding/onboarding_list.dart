@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-
+ 
 class SlideList {
   //extends StatelessWidget {
   final String assest;

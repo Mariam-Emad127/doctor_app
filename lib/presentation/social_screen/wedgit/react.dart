@@ -1,3 +1,4 @@
+import 'package:doctor_app/core/service/notification.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/data/post_model.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/comment.dart';
@@ -45,7 +46,10 @@ class _ReactState extends State<React> {
         icon: Icon(
           Icons.send,
         ),
-        onPressed: () {},
+        onPressed: () async{
+  await NotificationServics().sendNotification( "Hi",  "Welcome again");
+
+        },
       ),
       Expanded(
           child: Align(
