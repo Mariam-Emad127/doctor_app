@@ -76,15 +76,7 @@ super.initState();
                                 ),
                                 SizedBox(width: 200,),
 
-                               //  Padding(
-                               //    padding: const EdgeInsets.only(top: 4),
-                               //   child: Text(//"${(state.comments[index].datePublished)as DateTime}",
-                               //      //"${DateFormat("dd/MMM/yyy").format(state.comments[index].datePublished )}",
-                               //      DateFormat.yMMMd().format("${state.comments[index].datePublished}" as DateTime ),
-                               //    style: const TextStyle(
-                               //    fontSize: 12, fontWeight: FontWeight.w400,),
-                               //    ),
-                               // )
+                        
                               ],
                             ),
 
