@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 import 'package:doctor_app/core/service/notification.dart';
+=======
+ import 'package:doctor_app/core/routing/app_router.dart';
+import 'package:doctor_app/core/routing/routes.dart';
+>>>>>>> Stashed changes
 import 'package:doctor_app/presentation/auth/signin.dart';
 import 'package:doctor_app/presentation/auth/wedgit/iconButton.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +30,95 @@ class _LogininState extends State<Loginin> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< Updated upstream
     return   BlocConsumer<AuthCubit, AuthState>(
+=======
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (BuildContext context, state) {
+        if (state is AuthSucess) {
+          Navigator.pushReplacementNamed(
+              context,Routes.HomeScreen
+            // MaterialPageRoute(  builder: (context) => HomeScreen(), )
+              );
+        } else if (state is AuthError) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("Warning"),
+                content: const Text("Invalid email or password"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Try again"),
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      },
+      builder: (BuildContext context, state) {
+        if (state is AuthLoading) {
+          return const Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        } else {
+          return Scaffold(
+            body: Form(
+              key: _formKey,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 300,
+                      ),
+                      //Center(child:
+                      SvgPicture.asset("assest/medical-records.svg",
+                          color: Color(0xFF2260FF)),
+                      Textformfeild(
+                        controller: _email,
+                        hintText: "enter your email",
+                        picon: Icon(Icons.email),
+                        textInputType: TextInputType.text,
+                        isPass: isPass,
+                      ),
+                      Textformfeild(
+                        controller: _password,
+                        hintText: "enter your password",
+                        sicon: IconButton(
+                          icon: Icon(
+                            isPass == false
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            // isPass==false ? true :false;
+                            setState(() {
+                              isPass = !isPass; //? true :false;
+                            });
+                          },
+                        ),
+                        textInputType: TextInputType.text,
+                        isPass: isPass,
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      InkWell(
+                          onTap: () async {
+                            if (_formKey.currentState!.validate()) {
+                              final email = _email.text.trim();
+                              final password = _password.text.trim();
+>>>>>>> Stashed changes
 
       listener: (BuildContext context,  state) {
       if (state is AuthSucess) {
