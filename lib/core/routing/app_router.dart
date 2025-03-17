@@ -11,11 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
-    Route ? onGenerateRoute(RouteSettings settings) {
+  Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.HomeScreen:
         return MaterialPageRoute(
-          builder: (_) => HomeScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) => postCubit(),
+            child: HomeScreen(),
+          ),
         );
       case Routes.login:
         return MaterialPageRoute(
