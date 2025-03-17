@@ -1,6 +1,10 @@
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import 'package:doctor_app/core/service/notification.dart';
+=======
+ import 'package:doctor_app/presentation/onboarding/onboarding.dart';
+>>>>>>> Stashed changes
 =======
  import 'package:doctor_app/presentation/onboarding/onboarding.dart';
 >>>>>>> Stashed changes
@@ -64,6 +68,9 @@ class _ReactState extends State<React> {
           //context.read<NotificationCubit>()..getAccessToken() ;
           //  ..sendlocalNotification("Hi", "Welcome again")..ForegroundNotification();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
