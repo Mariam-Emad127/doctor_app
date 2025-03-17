@@ -1,5 +1,10 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import 'package:doctor_app/core/service/notification.dart';
+=======
+ import 'package:doctor_app/core/routing/app_router.dart';
+import 'package:doctor_app/core/routing/routes.dart';
+>>>>>>> Stashed changes
 =======
  import 'package:doctor_app/core/routing/app_router.dart';
 import 'package:doctor_app/core/routing/routes.dart';

@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
  import 'package:doctor_app/presentation/auth/controller/auth_cubit.dart';
 import 'package:doctor_app/presentation/auth/login.dart';
  import 'package:doctor_app/presentation/social_screen/controller/comment/comment_cubit.dart';
@@ -19,10 +20,21 @@ import 'package:doctor_app/core/utils/string.dart';
 import 'package:doctor_app/presentation/auth/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+=======
+import 'package:doctor_app/core/routing/app_router.dart';
+import 'package:doctor_app/core/routing/routes.dart';
+import 'package:doctor_app/core/utils/string.dart';
+import 'package:doctor_app/presentation/auth/login.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+>>>>>>> Stashed changes
  import 'package:supabase_flutter/supabase_flutter.dart';
  
 import 'firebase_options.dart';
  void main() async {
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   WidgetsFlutterBinding.ensureInitialized();
    await Supabase.initialize(
@@ -46,6 +58,9 @@ String ?s ;
  print( "bbbbbbbbbbbbbb=$s");
  
  runApp(MyApp(appRouter: AppRouter(),));
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 
@@ -57,6 +72,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     return MultiBlocProvider(
       
@@ -82,6 +98,8 @@ class MyApp extends StatelessWidget {
        ),
     );
 =======
+=======
+>>>>>>> Stashed changes
     return    MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
@@ -93,6 +111,9 @@ class MyApp extends StatelessWidget {
              onGenerateRoute:appRouter.onGenerateRoute,
        );
     //);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
   }
 }
