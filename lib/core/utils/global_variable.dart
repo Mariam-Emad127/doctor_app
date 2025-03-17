@@ -1,6 +1,10 @@
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+//import 'package:doctor_app/presentation/notification_screen/ui/notificationscreen.dart';
+>>>>>>> Stashed changes
 =======
 //import 'package:doctor_app/presentation/notification_screen/ui/notificationscreen.dart';
 >>>>>>> Stashed changes
@@ -18,10 +22,14 @@ SocialScreen(),
 RecommendationDoctor(),
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
 //Notificationscreen(),
 >>>>>>> Stashed changes
   Center(child: Text("user. ")),
+=======
+//Notificationscreen(),
+>>>>>>> Stashed changes
 =======
 //Notificationscreen(),
 >>>>>>> Stashed changes
