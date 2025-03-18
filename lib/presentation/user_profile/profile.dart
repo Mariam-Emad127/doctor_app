@@ -33,9 +33,9 @@ class _ProfileState extends State<Profile> {
   }
 
    Future<void> fetchUser() async {
-     var userData = await ProfileCubit().getUserData();
+     //var userData = await ProfileCubit().getUserData();
      setState(() {
-       user = userData;
+       //user = userData;
      });
    }
 
@@ -83,7 +83,7 @@ class _ProfileState extends State<Profile> {
                 //  String fileName = file!.split('/').last;
                   ProfileCubit().uploadProfileImageToSupabas(
                       fileName:"profile/${file!.path.split( "/").last} ",//"pppp",  //,"file!.path ,
-                      file: file!,
+                      file: file,
                       Uid: FirebaseAuth.instance.currentUser!.uid);
                 },
                 child: CircleAvatar(

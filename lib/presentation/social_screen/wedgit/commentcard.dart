@@ -5,9 +5,7 @@ import 'package:doctor_app/presentation/social_screen/data/post_model.dart';
 import 'package:doctor_app/presentation/widget/circularProgress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-
-import '../../../core/utils/string.dart';
+ 
 
 class Commentcard extends StatefulWidget {
   final Post? post;
@@ -28,13 +26,10 @@ super.initState();
 
   @override
   Widget build(BuildContext context) {
-    return
-      //Scaffold(
-    //    body:
-    BlocBuilder<CommentCubit,CommentState>(
+    return BlocBuilder<CommentCubit,CommentState>(
           builder: (BuildContext context,  state) {
             if(state is CommentSucsess){
-              List <CommentModel>comment=state.comments;
+              //List <CommentModel>comment=state.comments;
               return Container(
 
                 padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),

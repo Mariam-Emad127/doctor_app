@@ -2,8 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -50,7 +49,7 @@ class ProfileCubit extends Cubit<ProfileState>{
       emit(ProfieLoading());
       var user=await FirebaseFirestore.instance.collection( "users").get();
       // .where("email",isEqualTo: email).get();
-       userData=await user.docs.map((e) => UserModed.fromjson(e)) .single ;
+       userData=await user.docs.map((e) => UserModed.fromjson(e)) .first ;
 
 
       print(userData);

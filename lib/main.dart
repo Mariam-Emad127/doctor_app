@@ -1,7 +1,6 @@
  import 'package:doctor_app/core/routing/app_router.dart';
 import 'package:doctor_app/core/routing/routes.dart';
-import 'package:doctor_app/core/utils/string.dart';
-import 'package:firebase_core/firebase_core.dart';
+ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
  import 'package:supabase_flutter/supabase_flutter.dart';
  
@@ -12,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
       url: 'https://etnasuvxeixhssutzmyo.supabase.co',
-      anonKey: "");
+      anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bmFzdXZ4ZWl4aHNzdXR6bXlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0ODIxMDksImV4cCI6MjA0ODA1ODEwOX0.vlqWr_ClfkHUJrGHTPEpY7FiJrVmtLjBbEmbmlgCpIk");
       //AppStrings.supabasekey);
   // Initialize the Firebase app
   await Firebase.initializeApp(
@@ -37,10 +36,7 @@ class MyApp extends StatelessWidget {
        return    MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-         // home:
-              //Notificationscreen()
-           //    HomeScreen()
-             //Loginin()
+   
              initialRoute: Routes.login,
              onGenerateRoute:appRouter.onGenerateRoute,
        );
