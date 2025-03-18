@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/presentation/social_screen/controller/comment/comment_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uuid/uuid.dart';
-
 import '../../data/comment_model.dart';
 
 class CommentCubit extends Cubit<CommentState>{
@@ -44,7 +42,8 @@ class CommentCubit extends Cubit<CommentState>{
           .doc(postId)
           .collection("comment")
           .doc(commentId).delete();
-    }catch(e){
+
+     }catch(e){
 
       print(e);
     }

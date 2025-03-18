@@ -1,11 +1,8 @@
-import 'package:doctor_app/core/utils/string.dart';
 import 'package:doctor_app/presentation/social_screen/controller/comment/comment_cubit.dart';
-import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
-import 'package:doctor_app/presentation/social_screen/wedgit/commentcard.dart';
+ import 'package:doctor_app/presentation/social_screen/wedgit/commentcard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
+ import 'package:uuid/uuid.dart';
 
 import '../data/post_model.dart';
 

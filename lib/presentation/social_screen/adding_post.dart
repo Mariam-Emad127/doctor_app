@@ -1,14 +1,14 @@
 import 'dart:io';
-import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
-import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
+import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
+import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_state.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
+import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
-import '../user_profile/presentation/controller/profile_cubit.dart';
-import 'data/post_model.dart';
+ import 'data/post_model.dart';
 
 class AddingPost extends StatefulWidget {
   const AddingPost({super.key});
@@ -152,9 +152,9 @@ class _AddingPostState extends State<AddingPost> {
   }
 
   fettchUser() async {
-  //  var userData = await ProfileCubit().getUserData();
+    var userData = await ProfileCubit().getUserData();
     setState(() {
-    //  user = userData;
+      user = userData;
     });
   }
 

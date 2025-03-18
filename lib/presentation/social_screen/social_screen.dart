@@ -1,6 +1,6 @@
 import 'package:doctor_app/core/utils/string.dart';
- import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
-import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
+ import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
+import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_state.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/add_post.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/delete_post.dart';
  import 'package:doctor_app/presentation/social_screen/wedgit/react.dart';
@@ -83,7 +83,8 @@ class _SocialScreenState extends State<SocialScreen> {
                              // ( post[index].description.toString())!=null?
                               Align(
                                   alignment: Alignment.topLeft ,
-                                  child: Text("${post[index]?.description.toString()}",style: TextStyle(fontSize: 25),)),//:Text( ""),
+                                  child: Text("${post[index]?.description.toString()}",style: TextStyle(fontSize: 25),)),
+                                  //:Text( ""),
 
                               (post[index]?.photoUrl!=null)?
                               Container(

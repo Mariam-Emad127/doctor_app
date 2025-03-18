@@ -1,8 +1,7 @@
 import 'package:doctor_app/presentation/auth/login.dart';
 import 'package:doctor_app/presentation/onboarding/onboarding_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
+ 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
 

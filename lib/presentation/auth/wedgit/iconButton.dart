@@ -1,4 +1,3 @@
-import 'package:doctor_app/core/utils/color.dart';
 import 'package:flutter/material.dart';
 
 class Button_icon extends StatelessWidget {

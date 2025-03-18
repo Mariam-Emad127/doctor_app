@@ -1,8 +1,8 @@
- import 'package:doctor_app/core/routing/app_router.dart';
+import 'package:doctor_app/core/routing/app_router.dart';
 import 'package:doctor_app/core/routing/routes.dart';
- import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
- import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
  
 import 'firebase_options.dart';
  

@@ -1,6 +1,5 @@
- 
- 
-import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
+import 'package:doctor_app/presentation/social_screen/controller/comment/comment_cubit.dart';
+import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/data/post_model.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/comment.dart';
 import 'package:flutter/material.dart';
@@ -29,26 +28,30 @@ class _ReactState extends State<React> {
           onPressed: () {
             BlocProvider.of<postCubit>(context).likePost(widget.postId);
 
-            setState(() {
-
-            });
+            setState(() {});
             ispressed = !ispressed;
-
           }),
       IconButton(
           icon: Icon(
             Icons.comment_outlined,
           ),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => CommentScreen(postId: widget.postId,post: widget.post,)));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                      create: (context) => CommentCubit()..readcomment( widget.postId),
+                      child: CommentScreen(
+                        postId: widget.postId,
+                        post: widget.post,
+                      ),
+                    )));
           }),
       IconButton(
         icon: Icon(
           Icons.send,
         ),
-        onPressed: (){},),
-        /*
+        onPressed: () {},
+      ),
+      /*
          onPressed: () async{
   await NotificationServics().sendNotification( "Hi",  "Welcome again");
          onPressed: () async {

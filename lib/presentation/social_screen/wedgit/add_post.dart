@@ -1,3 +1,4 @@
+import 'package:doctor_app/core/routing/routes.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/textfeiledwedgit.dart';
 import 'package:doctor_app/presentation/user_profile/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,10 +14,10 @@ class AddPost extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Profile(
-                  uid: FirebaseAuth.instance.currentUser!.uid,
-                )));
+      //      Navigator.of(context).push(MaterialPageRoute(    builder: (context) => Profile(
+      //       uid: FirebaseAuth.instance.currentUser!.uid,
+       //         )));
+       Navigator.pushNamed(context, Routes.Profole_screen);
           },
           child: CircleAvatar(
               radius: 16,
