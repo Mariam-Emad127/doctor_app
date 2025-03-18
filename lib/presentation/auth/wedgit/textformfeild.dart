@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Textformfeild extends StatelessWidget {
+// ignore: must_be_immutable
+class TextformfeildWidget extends StatelessWidget {
 
   final TextEditingController controller;
   final String hintText;
@@ -9,7 +10,7 @@ class Textformfeild extends StatelessWidget {
   final Icon? picon;
   final IconButton? sicon;
         Function? onpress;
-    Textformfeild(
+    TextformfeildWidget(
       {super.key,
      // required this.title,
       required this.controller,

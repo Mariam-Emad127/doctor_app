@@ -4,8 +4,6 @@ import 'package:doctor_app/presentation/auth/wedgit/textformfeild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../Home_screen/HomeScreen.dart';
 import 'controller/auth_cubit.dart';
 import 'controller/auth_state.dart';
 
@@ -18,9 +16,9 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _email = TextEditingController();
-  TextEditingController _password = TextEditingController();
-  TextEditingController _username = TextEditingController();
+  final TextEditingController  _email = TextEditingController();
+ final TextEditingController _password = TextEditingController();
+ final TextEditingController _username = TextEditingController();
 
   bool isPass=false;
 
@@ -76,17 +74,17 @@ class _SignUpState extends State<SignUp> {
               
                   children: [
 
-                    SizedBox(height: 150,),
-                    SvgPicture.asset("assest/medical-records.svg",color:  Color(0xFF2260FF)),
-                    SizedBox(height: 20,),
-                    Text( "SignUP",style: TextStyle(color:Color(0xFF2260FF) ,fontSize: 30 ,
+                   const SizedBox(height: 150,),
+                    SvgPicture.asset("assest/medical-records.svg",color:const  Color(0xFF2260FF)),
+                   const SizedBox(height: 20,),
+                    Text( "SignUP",style:const TextStyle( color:const Color(0xFF2260FF) ,fontSize: 30 ,
                       fontWeight: FontWeight.bold, )),
-                    Textformfeild(  controller: _username,hintText: "enter your userName",
+                    TextformfeildWidget(  controller: _username,hintText: "enter your userName",
                       textInputType: TextInputType.text, isPass: isPass,),
-                    Textformfeild(  controller: _email,hintText: "enter your email",
+                    TextformfeildWidget(  controller: _email,hintText: "enter your email",
                       picon:Icon(Icons.email),
                       textInputType: TextInputType.text, isPass: isPass,),
-                    Textformfeild(  controller: _password,hintText: "enter your password",
+                    TextformfeildWidget(  controller: _password,hintText: "enter your password",
                       sicon:  IconButton (icon:Icon( isPass==false? Icons.visibility_off : Icons.visibility,),
                         onPressed: () {
                            setState(() {
@@ -94,7 +92,7 @@ class _SignUpState extends State<SignUp> {
 
                           });  }, ),
                       textInputType: TextInputType.text, isPass: isPass,),
-                    Textformfeild(  controller: _password,hintText: "comfirm your password",
+                    TextformfeildWidget(  controller: _password,hintText: "comfirm your password",
                       sicon:  IconButton (icon:Icon( isPass==false? Icons.visibility_off : Icons.visibility,),
                         onPressed: () {
                           setState(() {

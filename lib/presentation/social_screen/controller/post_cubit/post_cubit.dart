@@ -1,17 +1,17 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
+import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
- import '../data/post_model.dart';
+ import '../../data/post_model.dart';
  import 'package:supabase_flutter/supabase_flutter.dart';
 
 class postCubit extends Cubit<postState> {
   late List<Post> postm;
   //late Post post;
   postCubit() : super(postInitial());
-
+///Upload post
   Future<void> uploadPost(String? description,
       String uid,
       String postId,
@@ -35,10 +35,11 @@ class postCubit extends Cubit<postState> {
       emit(postSucess(posts: postm));
     } catch (e) {
       emit(postError(e.toString()));
-      //print(e.toString());
-    }
+     }
   }
 
+
+///Delete post
   Future<void> DelletePost(String postId) async {
     try {
       emit(postLoading());
@@ -51,14 +52,14 @@ class postCubit extends Cubit<postState> {
   }
 
 
-  Future<String> uploadPostImageToSupabase({required File file,
+  Future<String> uploadPostImageToSupabase({
+    required File file,
     required String fileName,
     required String postId}) async {
     final supabase = Supabase.instance.client;
     try {
       emit(postLoading());
-      final response =
-      await supabase.storage.from("Doctor").upload("$fileName/", file);
+     // final response =await supabase.storage.from("Doctor").upload("$fileName/", file);
       // if (response != null) {
       //   print('Image uploaded successfully');
       // } else {
@@ -71,7 +72,7 @@ class postCubit extends Cubit<postState> {
       FirebaseFirestore.instance.collection("post").doc(postId).update({
         "photoUrl": publicUrl
       });
-      // emit(postSucess( ));
+      // emit(postSucess(posts: [] ));
       return publicUrl;
     } catch (e) {
       emit(postError(e.toString()));
@@ -85,8 +86,7 @@ class postCubit extends Cubit<postState> {
     final postCollection = FirebaseFirestore.instance
         .collection("post")
         .orderBy("datePublished", descending: true);
-    return postCollection.snapshots().map((querySnapshot) =>
-        querySnapshot.docs.map((e) => Post.fromJson(e)).toList());
+    return postCollection.snapshots().map((querySnapshot) => querySnapshot.docs.map((e) => Post.fromJson(e)).toList());
   }
 
   Future<void> getData() async {

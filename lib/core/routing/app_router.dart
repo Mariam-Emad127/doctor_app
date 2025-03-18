@@ -5,12 +5,19 @@ import 'package:doctor_app/presentation/auth/login.dart';
 import 'package:doctor_app/presentation/auth/signin.dart';
 import 'package:doctor_app/presentation/onboarding/onboarding.dart';
 import 'package:doctor_app/presentation/social_screen/adding_post.dart';
-import 'package:doctor_app/presentation/social_screen/controller/post_cubit.dart';
+import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/social_screen.dart';
+import 'package:doctor_app/presentation/social_screen/wedgit/comment.dart';
+import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
+import 'package:doctor_app/presentation/user_profile/profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
+   late String postId;
+
+ // AppRouter({required this.postId});
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.HomeScreen:
@@ -47,7 +54,16 @@ class AppRouter {
                   create: (context) => postCubit(),
                   child: AddingPost(),
                 ));
+      case Routes.Profole_screen:
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) => ProfileCubit()..getUserData(),
+                  child: Profile(uid: FirebaseAuth.instance.currentUser!.uid),
+                ) 
+                );
 
+                //case Routes.comment_screen:
+                //return MaterialPageRoute(builder:  (_)=>CommentScreen(postId: postId));
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

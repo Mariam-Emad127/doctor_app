@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:doctor_app/core/utils/string.dart';
- import 'package:doctor_app/presentation/social_screen/controller/post_state.dart';
+ import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_state.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
  import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_state.dart';
@@ -47,7 +47,7 @@ class _ProfileState extends State<Profile> {
       if (state is postLoading) {
     CircularProgress();
       } else if (state is postError) {
-        Scaffold(
+      const  Scaffold(
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -88,12 +88,12 @@ class _ProfileState extends State<Profile> {
                 },
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage(user!.photoUrl??AppStrings.unknowmimage)
+                  backgroundImage: NetworkImage(user?.photoUrl??AppStrings.unknowmimage)
                  ),
               ),
             ),
-            SizedBox(height: 20),
-            Text(user!.username),
+           const SizedBox(height: 20),
+            Text(user?.username??""),
           ],
         ),
       );

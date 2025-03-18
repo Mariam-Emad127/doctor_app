@@ -73,14 +73,14 @@ class _LogininState extends State<Loginin> {
                       //Center(child:
                       SvgPicture.asset("assest/medical-records.svg",
                           color: Color(0xFF2260FF)),
-                      Textformfeild(
+                      TextformfeildWidget(
                         controller: _email,
                         hintText: "enter your email",
                         picon: Icon(Icons.email),
                         textInputType: TextInputType.text,
                         isPass: isPass,
                       ),
-                      Textformfeild(
+                      TextformfeildWidget(
                         controller: _password,
                         hintText: "enter your password",
                         sicon: IconButton(

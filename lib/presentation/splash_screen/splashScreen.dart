@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:doctor_app/core/utils/color.dart';
 import 'package:doctor_app/presentation/onboarding/onboarding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,4 @@
-import 'package:doctor_app/presentation/auth/controller/auth_cubit.dart';
-
+ 
 import 'package:flutter/material.dart';
 
 class AuthError extends AuthState {

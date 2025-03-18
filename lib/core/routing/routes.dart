@@ -5,7 +5,7 @@ static const String HomeScreen="/HomeScreen";
 static const String onboarding="/onboarding"; 
 static const String addingPost="/adding_post"; 
 static const String social_screen="/social_screen"; 
-
-
+static const String Profole_screen="/profile";
+static const String comment_screen="/comment";
  
 }
