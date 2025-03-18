@@ -1,4 +1,3 @@
- import 'package:doctor_app/core/routing/app_router.dart';
 import 'package:doctor_app/core/routing/routes.dart';
 import 'package:doctor_app/presentation/auth/signin.dart';
 import 'package:doctor_app/presentation/auth/wedgit/iconButton.dart';

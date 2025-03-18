@@ -19,19 +19,20 @@ class _HomeScreenState extends State<HomeScreen> {
       _page = page;
     });
   }
-
+ 
   @override
   void initState() {
      pageController = PageController();
   }
 
-  void navigate(int page) {
-    pageController.jumpToPage(page);
-  }
 
   @override
   void dispose() {
     //  pageController.dispose();
+  }
+
+  void navigate(int page) {
+    pageController.jumpToPage(page);
   }
 
   @override

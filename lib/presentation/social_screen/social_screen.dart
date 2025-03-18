@@ -33,7 +33,7 @@ class _SocialScreenState extends State<SocialScreen> {
     super.initState();
     setState(() {});
     fettchUser();
-    //context.read<postCubit>().getData();
+    context.read<postCubit>().getData();
    //  BlocProvider.of<postCubit>(context).getData();
    }
 
