@@ -154,7 +154,7 @@ class _AddingPostState extends State<AddingPost> {
   fettchUser() async {
     var userData = await ProfileCubit().getUserData();
     setState(() {
-      user = userData;
+      user = userData !;
     });
   }
 

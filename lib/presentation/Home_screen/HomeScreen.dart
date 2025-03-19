@@ -1,6 +1,5 @@
 import 'package:doctor_app/core/utils/color.dart';
 import 'package:doctor_app/core/utils/global_variable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

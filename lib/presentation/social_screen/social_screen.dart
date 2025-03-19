@@ -6,7 +6,7 @@ import 'package:doctor_app/presentation/social_screen/wedgit/delete_post.dart';
  import 'package:doctor_app/presentation/social_screen/wedgit/react.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
-import 'package:doctor_app/presentation/widget/circularProgress.dart';
+import 'package:doctor_app/presentation/widget/circular_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'data/post_model.dart';
