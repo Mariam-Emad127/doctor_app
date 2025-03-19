@@ -63,6 +63,7 @@ class AuthCubit extends Cubit<AuthState>{
   }
 
 
+  // ignore: non_constant_identifier_names
   Future<void> SignInWithEmailAndPassword({required String email,required String password})async {
     String res = " sucsess";
     emit(AuthLoading());
@@ -76,8 +77,7 @@ class AuthCubit extends Cubit<AuthState>{
       res = "success";
     } catch (e) {
       emit(AuthError(e.toString()));
-      print(e);
-     // return e.toString();
+ 
     }
    // return res;
   }

@@ -1,8 +1,7 @@
-import 'dart:async';
 import 'package:doctor_app/presentation/onboarding/onboarding.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -35,7 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   //assest\medical-records.svg
-                  SvgPicture.asset("assest/medical-records.svg",color:  Colors.white),
+                  SvgPicture.asset("assest/medical-records.svg",
+                  //color:  Colors.white
+                  ),
                   SizedBox(height: 10,),
                   Text(
                     "My Doctor",

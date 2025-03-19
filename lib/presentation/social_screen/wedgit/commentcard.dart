@@ -2,7 +2,7 @@ import 'package:doctor_app/presentation/social_screen/controller/comment/comment
 import 'package:doctor_app/presentation/social_screen/controller/comment/comment_state.dart';
 import 'package:doctor_app/presentation/social_screen/data/comment_model.dart';
 import 'package:doctor_app/presentation/social_screen/data/post_model.dart';
-import 'package:doctor_app/presentation/widget/circularProgress.dart';
+import 'package:doctor_app/presentation/widget/circular_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
  

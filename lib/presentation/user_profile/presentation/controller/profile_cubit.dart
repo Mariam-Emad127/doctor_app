@@ -31,7 +31,7 @@ class ProfileCubit extends Cubit<ProfileState>{
       print("File uploaded successfully: $publicUrl");
       String docId=const Uuid().v1();
       FirebaseFirestore.instance.collection( "users").doc(Uid).update({"photoUrl":publicUrl});
-      emit(ProfileSucess( ));
+      //emit(ProfileSucess( ));
       return publicUrl;
     }
     catch (e) {
@@ -42,7 +42,7 @@ class ProfileCubit extends Cubit<ProfileState>{
 
   }
 
-  Future<UserModed> getUserData( )async{
+  Future<UserModed?> getUserData( )async{
 //String email
    UserModed? userData;
     try{
@@ -54,11 +54,11 @@ class ProfileCubit extends Cubit<ProfileState>{
 
       print(userData);
       print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-      emit(ProfileSucess());
+      emit(ProfileSucess(user: userData));
     }catch(h){
       emit(ProfileError(h.toString()));
       print("2222222222222222222222222${h}");}
-    return userData!  ;
+    return userData  ;
 
   }
 
@@ -80,9 +80,8 @@ class ProfileCubit extends Cubit<ProfileState>{
 //   }
   Future<String> uploadProfileImageToSupabas({required File file, required String fileName,required String Uid})
   async {
-    //Post ?post;
-    //String postId;
-    final supabase = Supabase.instance.client;
+   
+     final supabase = Supabase.instance.client;
     try {
       emit(ProfieLoading());
       // Upload the file to the Supabase storage bucket
@@ -96,9 +95,9 @@ class ProfileCubit extends Cubit<ProfileState>{
 
       final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
       print("File uploaded successfully: $publicUrl");
-      String docId=const Uuid().v1();
+      //String docId=const Uuid().v1();
       FirebaseFirestore.instance.collection( "users").doc(Uid).update({"photoUrl":publicUrl});// .collection("photourl").doc().set( {"photoUrl":publicUrl});
-      emit(ProfileSucess( ));
+      //emit(ProfileSucess( ));
       return publicUrl;
     }
     catch (e) {
