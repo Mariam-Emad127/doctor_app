@@ -1,9 +1,9 @@
 import 'package:doctor_app/core/utils/string.dart';
- import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
+import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_state.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/add_post.dart';
 import 'package:doctor_app/presentation/social_screen/wedgit/delete_post.dart';
- import 'package:doctor_app/presentation/social_screen/wedgit/react.dart';
+import 'package:doctor_app/presentation/social_screen/wedgit/react.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
 import 'package:doctor_app/presentation/widget/circular_progress.dart';
@@ -34,8 +34,7 @@ class _SocialScreenState extends State<SocialScreen> {
     setState(() {});
     fettchUser();
     context.read<postCubit>().getData();
-   //  BlocProvider.of<postCubit>(context).getData();
-   }
+    }
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../adding_post.dart';
-
+import '../../../core/routing/routes.dart';
+ 
 class TextFeiledWedgit extends StatefulWidget {
   const TextFeiledWedgit({super.key});
 
@@ -33,8 +33,8 @@ class _TextFeiledWedgitState extends State<TextFeiledWedgit> {
           ),
           child: TextField(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AddingPost()));
+              Navigator.pushNamed(context,  Routes.addingPost);
+             // of(context).push(MaterialPageRoute( builder: (context) => AddingPost()));
             },
             controller: nameController,
             decoration: InputDecoration(

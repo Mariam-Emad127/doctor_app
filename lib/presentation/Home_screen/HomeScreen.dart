@@ -1,9 +1,12 @@
+// ignore: file_names
 import 'package:doctor_app/core/utils/color.dart';
 import 'package:doctor_app/core/utils/global_variable.dart';
 import 'package:flutter/material.dart';
 
+import '../../core/routing/routes.dart';
+
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -37,9 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //   title: Text("Home"),
-        // ),
+   
         body: PageView(
           controller: pageController,
           children: GlobalVariable,
@@ -83,7 +84,19 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: mobileprimarycolor,
             ),
           ],
-          onTap: navigate,
+          onTap:  (index){
+  switch(index){
+      case 0:
+        Navigator.pushNamed(context, Routes.social_screen);
+        break;
+      case 1:
+        Navigator.pushNamed(context, "/second");
+          case 2:
+                  Navigator.pushNamed(context, Routes.chat);
+        break;
+         
+    }
+ },
           currentIndex: _page,
         ));
   }
