@@ -12,9 +12,7 @@ class AddPost extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-      //      Navigator.of(context).push(MaterialPageRoute(    builder: (context) => Profile(
-      //       uid: FirebaseAuth.instance.currentUser!.uid,
-       //         )));
+   
        Navigator.pushNamed(context, Routes.Profole_screen);
           },
           child: CircleAvatar(

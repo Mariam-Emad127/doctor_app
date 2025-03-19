@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_state.dart';
  import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -107,6 +108,17 @@ class ProfileCubit extends Cubit<ProfileState>{
     }
 
   }
+
+
+Future<File?> picimage() async {
+    var pickfile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+if(pickfile!=null){
+      File file = File(pickfile.path);
+     return file;
+  
+  }}
+
 
 
 }

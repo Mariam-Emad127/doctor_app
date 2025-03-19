@@ -3,6 +3,8 @@ import 'package:doctor_app/presentation/Home_screen/HomeScreen.dart';
 import 'package:doctor_app/presentation/auth/controller/auth_cubit.dart';
 import 'package:doctor_app/presentation/auth/login.dart';
 import 'package:doctor_app/presentation/auth/signin.dart';
+import 'package:doctor_app/presentation/chat/chat_screen.dart';
+import 'package:doctor_app/presentation/chat/controller/cubit/chat_cubit.dart';
 import 'package:doctor_app/presentation/onboarding/onboarding.dart';
 import 'package:doctor_app/presentation/social_screen/adding_post.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
@@ -14,9 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
-   //late String postId;
-
- // AppRouter({required this.postId});
+ 
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.HomeScreen:
@@ -61,8 +61,11 @@ class AppRouter {
                 ) 
                 );
 
-                //case Routes.comment_screen:
-                //return MaterialPageRoute(builder:  (_)=>CommentScreen(postId: postId));
+                case Routes.chat:
+                return MaterialPageRoute(builder:(_)=>  BlocProvider(
+                  create: (context) => ChatCubit()..getUses(),
+                  child:ChatScreen( ),
+                ));
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

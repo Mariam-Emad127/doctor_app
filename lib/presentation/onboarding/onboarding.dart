@@ -16,8 +16,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   void initState() {
 
-    // TODO: implement initState
-    super.initState();
+     super.initState();
     _controller = PageController(initialPage: 0);
 
   }

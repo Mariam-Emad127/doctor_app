@@ -2,12 +2,10 @@ import 'dart:io';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_state.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
-import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:uuid/uuid.dart';
+ import 'package:uuid/uuid.dart';
  import 'data/post_model.dart';
 
 class AddingPost extends StatefulWidget {
@@ -30,7 +28,7 @@ class _AddingPostState extends State<AddingPost> {
   void initState() {
     super.initState();
     // TODO: implement initState
-    fettchUser();
+  //  fettchUser();
   }
   @override
   void dispose() {
@@ -67,8 +65,8 @@ class _AddingPostState extends State<AddingPost> {
                             file != null ? file.toString() : null,
                             user.username,
                             user.photoUrl
-                                .toString() //==null?"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg" :  user.photoUrl.toString()
-
+                                .toString() 
+                                
                             );
                         postCubit().uploadPost(
                             postController.text.trim(),
@@ -77,7 +75,7 @@ class _AddingPostState extends State<AddingPost> {
                             file != null ? file.toString() : null,
                             user.username,
                             user.photoUrl
-                                .toString() //==null?"https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg" :  user.photoUrl.toString()
+                                .toString() 
 
                             );
                       }
@@ -127,8 +125,9 @@ class _AddingPostState extends State<AddingPost> {
                     onPressed: () async {
                       setState(() {});
                       //postCubit().pickImage();
-                      picimage();
-                      setState(() {});
+                     // picimage();
+                     context.read<postCubit>().pickImage();
+                     // setState(() {});
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -150,20 +149,14 @@ class _AddingPostState extends State<AddingPost> {
       },
     );
   }
-
+/*
   fettchUser() async {
     var userData = await ProfileCubit().getUserData();
     setState(() {
       user = userData !;
     });
   }
-
+*/
   //
-  picimage() async {
-    var pickfile = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      file = File(pickfile!.path);
-    });
-  }
+ 
 }
