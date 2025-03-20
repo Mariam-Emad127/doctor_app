@@ -3,6 +3,7 @@ import 'package:doctor_app/presentation/Home_screen/HomeScreen.dart';
 import 'package:doctor_app/presentation/auth/controller/auth_cubit.dart';
 import 'package:doctor_app/presentation/auth/login.dart';
 import 'package:doctor_app/presentation/auth/signin.dart';
+import 'package:doctor_app/presentation/chat/IndividualPage.dart';
 import 'package:doctor_app/presentation/chat/chat_screen.dart';
 import 'package:doctor_app/presentation/chat/controller/cubit/chat_cubit.dart';
 import 'package:doctor_app/presentation/onboarding/onboarding.dart';
@@ -66,6 +67,11 @@ class AppRouter {
                   create: (context) => ChatCubit()..getUses(),
                   child:ChatScreen( ),
                 ));
+     
+     case Routes.indevedual_chat:
+     return MaterialPageRoute(builder:  (_)=>Individualpage());
+     
+     
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

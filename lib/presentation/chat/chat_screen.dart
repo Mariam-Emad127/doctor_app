@@ -1,3 +1,4 @@
+import 'package:doctor_app/core/routing/routes.dart';
 import 'package:doctor_app/presentation/chat/controller/cubit/chat_cubit.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:flutter/material.dart';
@@ -36,19 +37,29 @@ class _ChatScreenState extends State<ChatScreen> {
           return CircularProgressIndicator();
         } else if (state is ChatUsersSucsess) {
           users = state.Users;
-          return ListView.builder(
-              itemCount: users.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(users[index].photoUrl ?? ""),
-                    radius: 16,
+          return 
+            ListView.builder(
+                itemCount: users.length,
+                itemBuilder: (context, index) {
+                  return 
+                  InkWell(
+            onTap: ()async{
+             await Navigator.pushNamed(context, Routes.indevedual_chat,arguments: {"name":users[index].username.toString()});
+            print("fffffffffffff{$users[index].username}" );
+            },
+                 child:  ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(users[index].photoUrl ?? ""),
+                      radius: 16,
+                    ),
+                    title: Text(users[index].username  
+                        //  (snapshot.data! as dynamic).docs[index]['username'],
+                        ),
                   ),
-                  title: Text(users[index].username  
-                      //  (snapshot.data! as dynamic).docs[index]['username'],
-                      ),
+                
                 );
-              });
+                }
+          );
         } else {
           return Text("Error");
         }
