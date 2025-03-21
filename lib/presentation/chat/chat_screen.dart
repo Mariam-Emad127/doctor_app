@@ -1,4 +1,5 @@
 import 'package:doctor_app/core/routing/routes.dart';
+import 'package:doctor_app/presentation/chat/IndividualPage.dart';
 import 'package:doctor_app/presentation/chat/controller/cubit/chat_cubit.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +44,12 @@ class _ChatScreenState extends State<ChatScreen> {
                 itemBuilder: (context, index) {
                   return 
                   InkWell(
-            onTap: ()async{
-             await Navigator.pushNamed(context, Routes.indevedual_chat,arguments: {"name":users[index].username.toString()});
-            print("fffffffffffff{$users[index].username}" );
+            onTap: () {
+               Navigator.pushNamed(context, Routes.indevedual_chat,arguments: {"name"://"mariam"
+             users[index].username.toString()
+           // Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>Individualpage( )) );
+             });
+            print("fffffffffffff${users[index].username}" );
             },
                  child:  ListTile(
                     leading: CircleAvatar(
@@ -60,6 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 );
                 }
           );
+      
         } else {
           return Text("Error");
         }
