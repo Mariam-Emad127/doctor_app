@@ -18,8 +18,8 @@ class ChatLoading extends ChatState {
 }
 
 class ChatSucsess extends ChatState {
- // final List<CommentModel > comments;
- // CommentSucsess( {required this.comments});
+ final List<MessageModel > message;
+  ChatSucsess( {required this.message});
   @override
   List<Object> get props => [  ];
 }

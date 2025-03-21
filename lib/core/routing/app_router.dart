@@ -68,8 +68,11 @@ class AppRouter {
                   child:ChatScreen( ),
                 ));
      
-     case Routes.indevedual_chat:
-     return MaterialPageRoute(builder:  (_)=>Individualpage());
+      case Routes.indevedual_chat:
+     return MaterialPageRoute(builder:  (_)=>BlocProvider(
+       create: (context) => ChatCubit()..sendMessage(),
+       child: Individualpage(),
+     ),settings: settings);
      
      
       default:
