@@ -14,7 +14,7 @@ class AuthCubit extends Cubit<AuthState>{
     required String username,
   }) async {
     emit(AuthLoading()); // Emitting loading state
-    String res = "success"; // Default result message
+   // String res = "success"; // Default result message
 
     try {
       // Check if any of the fields are empty
@@ -65,18 +65,20 @@ class AuthCubit extends Cubit<AuthState>{
 
   // ignore: non_constant_identifier_names
   Future<void> SignInWithEmailAndPassword({required String email,required String password})async {
-    String res = " sucsess";
+   //late String res ;//= " sucsess";
     emit(AuthLoading());
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword (
+      //final credential = 
+      await FirebaseAuth.instance.signInWithEmailAndPassword (
         email: email,
         password: password,
       );
 
       emit(AuthSucess());
-      res = "success";
+     // res = "success";
     } catch (e) {
       emit(AuthError(e.toString()));
+      //res = " fail";
  
     }
    // return res;

@@ -50,6 +50,7 @@ dependencies:
   onesignal_flutter: ^5.2.9
   dio: ^5.7.0
   socket_io_client: ^1.0.2
+  fl_chart: ^0.70.2
 
 
 dev_dependencies:

@@ -24,7 +24,7 @@ class TextformfeildWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(13),
-      child: Container(
+      child: SizedBox(
         height: 50,
         width: 350,
         child: TextFormField(

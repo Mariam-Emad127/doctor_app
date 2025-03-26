@@ -19,18 +19,18 @@ class ChatLoading extends ChatState {
 
 class ChatSucsess extends ChatState {
  final List<MessageModel > message;
-  ChatSucsess( {required this.message});
+  const ChatSucsess( {required this.message});
   @override
   List<Object> get props => [  ];
 }
 class ChatUsersSucsess extends ChatState {
-  final List<UserModed > Users;
-  ChatUsersSucsess( {required this.Users});
+  final List<UserModed > users;
+  const ChatUsersSucsess( {required this.users});
   @override
   List<Object> get props => [  ];
 }
 class ChatFailure extends ChatState {
-  ChatFailure(String message);
+ const  ChatFailure(String message);
 
   @override
   List<Object> get props => [];

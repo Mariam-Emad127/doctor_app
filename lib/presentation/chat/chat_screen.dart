@@ -1,5 +1,5 @@
 import 'package:doctor_app/core/routing/routes.dart';
-import 'package:doctor_app/presentation/chat/IndividualPage.dart';
+//import 'package:doctor_app/presentation/chat/IndividualPage.dart';
 import 'package:doctor_app/presentation/chat/controller/cubit/chat_cubit.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
         if (state is ChatLoading) {
           return CircularProgressIndicator();
         } else if (state is ChatUsersSucsess) {
-          users = state.Users;
+          users = state.users;
           return 
             ListView.builder(
                 itemCount: users.length,
