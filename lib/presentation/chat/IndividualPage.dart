@@ -3,6 +3,7 @@ import 'package:doctor_app/presentation/chat/widgets/own_message.dart';
 import 'package:doctor_app/presentation/chat/widgets/send_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// ignore: library_prefixes
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class Individualpage extends StatefulWidget {
@@ -13,15 +14,14 @@ class Individualpage extends StatefulWidget {
 }
 
 class _IndividualpageState extends State<Individualpage> {
-    ScrollController _controller = ScrollController();
-TextEditingController _textEditingController=TextEditingController();
+    final ScrollController _controller = ScrollController();
+final TextEditingController _textEditingController=TextEditingController();
     String name="llllllllllll";
    IO.Socket? socket;
 @override
   void initState() {
-    context.read<ChatCubit>().sendMessage();
-    // TODO: implement initState
-    super.initState();
+    context.read<ChatCubit>().connectDevice();
+     super.initState();
   }
  
 @override
@@ -54,15 +54,13 @@ TextEditingController _textEditingController=TextEditingController();
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 200,//size.width * 0.60,
-              child: Container(
-                child: Text(
-                name,
-               // "${rcvdData?["name"]}",// 'Chat',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
-                  textAlign: TextAlign.left,
-                ),
+              child: Text(
+              name,
+                             // "${rcvdData?["name"]}",// 'Chat',
+                style: TextStyle(fontSize: 15, color: Colors.white),
+                textAlign: TextAlign.left,
               ),
             ),
           ],
@@ -91,7 +89,19 @@ TextEditingController _textEditingController=TextEditingController();
               },
             ),
           ),
-         sendBubble(messageController: _textEditingController, onPressed:  (){})
+         sendBubble(messageController: _textEditingController, onPressed:  (){}),
+       //  PieChartSectionData ()
+      /*
+        PieChart(
+          //PieChartSectionData()
+           PieChartData(
+            sections: []
+    // read about it in the PieChartData section
+  ),
+  duration: Duration(milliseconds: 150), // Optional
+  curve: Curves.linear, // Optional
+          ),
+        */
         ],
       ),
     );

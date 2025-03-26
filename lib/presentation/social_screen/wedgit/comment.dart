@@ -25,7 +25,7 @@ class _CommentScreenState extends State<CommentScreen> {
   void initState() {
     
  BlocProvider.of<CommentCubit>(context).getComment(widget.postId);
-    // TODO: implement initState
+    
     super.initState();
   }
 

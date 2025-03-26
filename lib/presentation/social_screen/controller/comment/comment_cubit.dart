@@ -37,7 +37,8 @@ class CommentCubit extends Cubit<CommentState>{
  Future<void> deletecommentPost(String postId, String commentId)async{
 
     try {
-      final commentcollection = await FirebaseFirestore.instance
+      //final commentcollection =
+       await FirebaseFirestore.instance
           .collection("post")
           .doc(postId)
           .collection("comment")

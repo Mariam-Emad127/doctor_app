@@ -10,6 +10,14 @@ part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   ChatCubit() : super(ChatInitial());
+  // Dart client
+  IO.Socket socket = IO.io("http://10.0.2.2:3000",
+    //'http://localhost:3000',
+  <String,dynamic>{
+    "transports": ["websocket"],
+    "autoConnect": true,});
+  List<MessageModel> messages = [];
+
 final String uid=FirebaseAuth.instance.currentUser!.uid; 
   Future<List<UserModed>> getUses() async {
     emit(ChatLoading());
@@ -18,17 +26,12 @@ final String uid=FirebaseAuth.instance.currentUser!.uid;
         await FirebaseFirestore.instance.collection('users').get();
        final contactList =
         documentSnapshot.docs.map((e) => UserModed.fromjson(e)).toList();
-        emit(ChatUsersSucsess(Users: contactList));
+        emit(ChatUsersSucsess(users: contactList));
         return contactList;
   }
 
-Future <void> sendMessage()async{
-  // Dart client
-  IO.Socket socket = IO.io("http://10.0.2.2:3000",
-    //'http://localhost:3000',
-  <String,dynamic>{
-    "transports": ["websocket"],
-    "autoConnect": true,});
+Future <void> connectDevice()async{
+
   //socket._sendMessage();
   socket.onConnect((_) {
     print('connect');
@@ -40,6 +43,24 @@ Future <void> sendMessage()async{
 
 
 }
+ Future <void> sendMessage(String sender,String message,String reciver)async{
+  emit(ChatLoading());
+  MessageModel messageModel=MessageModel(msg: message,sender:sender ,reciver:reciver,type: "OwnMessage");
+
+
+socket.emit("message" ,{
+"type":"OwnMessage","sender": sender,"reciver":reciver,"message":message
+});
+messages.add(messageModel);
+emit(ChatSucsess(message: messages));
+
+ }
+
+Future <void> reciveMessage()async{
+socket.on("message" , handler)
+
+}
+
 
 
 }

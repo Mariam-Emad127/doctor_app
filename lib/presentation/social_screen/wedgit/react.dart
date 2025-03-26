@@ -9,7 +9,7 @@ class React extends StatefulWidget {
   final postId;
   final Post? post;
 
-  React({super.key, this.postId, this.post});
+ const React({super.key, this.postId, this.post});
 
   @override
   State<React> createState() => _ReactState();

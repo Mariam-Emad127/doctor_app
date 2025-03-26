@@ -70,7 +70,7 @@ class AppRouter {
      
       case Routes.indevedual_chat:
      return MaterialPageRoute(builder:  (_)=>BlocProvider(
-       create: (context) => ChatCubit()..sendMessage(),
+       create: (context) => ChatCubit()..connectDevice(),
        child: Individualpage(),
      ),settings: settings);
      
