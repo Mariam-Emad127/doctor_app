@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:doctor_app/core/utils/string.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_state.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
@@ -110,12 +111,16 @@ class _AddingPostState extends State<AddingPost> {
                 ),
                 //  ),
                 Card(
+                 child:  Image.network(AppStrings.unknowmimage)
+                  /*
                     child: file == null
                         ? Image.network(
                             "https://i.pinimg.com/736x/05/b4/fb/05b4fbc3f169175e6deb97b3977175b6.jpg",
                             height: 300,
                           )
-                        : Image.file(file!)),
+                        : Image.file(file!)
+                        */
+                        ),
 
                 //network( file.path),
 

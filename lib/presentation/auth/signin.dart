@@ -1,6 +1,7 @@
-import 'package:doctor_app/presentation/auth/login.dart';
+import 'package:doctor_app/core/routing/routes.dart';
+import 'package:doctor_app/presentation/auth/wedgit/alreadyHaveAccount.dart';
+import 'package:doctor_app/presentation/auth/wedgit/email_password.dart';
 import 'package:doctor_app/presentation/auth/wedgit/iconButton.dart';
-import 'package:doctor_app/presentation/auth/wedgit/textformfeild.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,140 +16,73 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController  _email = TextEditingController();
- final TextEditingController _password = TextEditingController();
- final TextEditingController _username = TextEditingController();
 
-  bool isPass=false;
 
   @override
   Widget build(BuildContext context) {
-    return   BlocConsumer<AuthCubit, AuthState>(
-
-      // builder: (BuildContext context,   state) {  },
-      listener: (BuildContext context,  state) {
-        if (state is AuthSucess) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Loginin(),
-              ));
-        } else if (state is AuthError) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: const Text("Warning"),
-                content: const Text("Invalid email or password"),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Try again"),
-                  ),
-                ],
+    return    Scaffold(
+            body:    BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is AuthSucess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Login Successful"), backgroundColor: Colors.green),
               );
-            },
-          );
-        }
-      },
-      builder: (BuildContext context,   state) {
-        if (state is AuthLoading) {
-          return const Scaffold(
-            body: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Center(
-                child: CircularProgressIndicator(),
+              // الانتقال إلى الشاشة التالية
+             // Navigator.pushReplacementNamed(context, Routes.login);
+            } else if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text( "Error"), backgroundColor: Colors.red),
+              );
+            }
+          }, 
+            
+         child:  SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 150,
+                  ),
+                  SvgPicture.asset("assest/medical-records.svg",
+                      color: const Color(0xFF2260FF)),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text("SignuP",
+                      style: const TextStyle(
+                        color: const Color(0xFF2260FF),
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      )),
+               EmailPassword(),
+                  SizedBox(
+                    height: 50,
+                  ),
+              Alreadyhaveaccount(),
+                  InkWell(
+                    onTap: () async {
+                      context
+                          .read<AuthCubit>()
+                          .createUserWithEmailAndPassword(
+                              email: context.read<AuthCubit>().email.text,
+                              password: context.read<AuthCubit>().password.text,
+                              username: context.read<AuthCubit>().username.text);
+if(context.read<AuthCubit>().formKey.currentState!.validate()){
+    Navigator.pushNamed(context, Routes.login);
+ }
+
+                    
+                    },
+                    child: Button_icon(title: "Signin"),
+                  ),
+               
+                ],
               ),
             ),
-          );
-        }else {
-          return Scaffold(
-
-            body: SingleChildScrollView(
-              child: Form(
-                key: _formKey,
-                child: Column(
-              
-                  children: [
-
-                   const SizedBox(height: 150,),
-                    SvgPicture.asset("assest/medical-records.svg",color:const  Color(0xFF2260FF)),
-                   const SizedBox(height: 20,),
-                    Text( "SignUP",style:const TextStyle( color:const Color(0xFF2260FF) ,fontSize: 30 ,
-                      fontWeight: FontWeight.bold, )),
-                    TextformfeildWidget(  controller: _username,hintText: "enter your userName",
-                      textInputType: TextInputType.text, isPass: isPass,),
-                    TextformfeildWidget(  controller: _email,hintText: "enter your email",
-                      picon:Icon(Icons.email),
-                      textInputType: TextInputType.text, isPass: isPass,),
-                    TextformfeildWidget(  controller: _password,hintText: "enter your password",
-                      sicon:  IconButton (icon:Icon( isPass==false? Icons.visibility_off : Icons.visibility,),
-                        onPressed: () {
-                           setState(() {
-                            isPass = !isPass;
-
-                          });  }, ),
-                      textInputType: TextInputType.text, isPass: isPass,),
-                    TextformfeildWidget(  controller: _password,hintText: "comfirm your password",
-                      sicon:  IconButton (icon:Icon( isPass==false? Icons.visibility_off : Icons.visibility,),
-                        onPressed: () {
-                          setState(() {
-                            isPass = !isPass;//? true :false;
-
-                          });  }, ),
-                      textInputType: TextInputType.text, isPass: isPass,),
-                    SizedBox(height: 50,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: const Text(
-                            'Already have an account?',
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const Loginin(),
-                            ),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: const Text(
-                              ' Login.',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                   InkWell(onTap:()async{
-                    // BlocConsumer<AuthCubit>()
-   await AuthCubit().createUserWithEmailAndPassword(email: _email.text.trim(), password: _password.text.trim(),
-     username: _username.text.trim(), );
-
-   Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>Loginin()) );
-
-                   } ,child:  Button_icon(title: "Signin"),),
-
-
-                  ],
-              
-                ),
-              ),
-            ),
-
-
-          );
-        }
-      },
-    );
-
-  }
+      )  );
+    
+  
+  } 
 }
+
+
+ 

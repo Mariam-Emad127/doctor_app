@@ -9,8 +9,9 @@ class TextformfeildWidget extends StatelessWidget {
   final bool isPass ;
   final Icon? picon;
   final IconButton? sicon;
-        Function? onpress;
-    TextformfeildWidget(
+   Function? onpress;
+   Function(String?v)validator;
+    TextformfeildWidget( 
       {super.key,
      // required this.title,
       required this.controller,
@@ -18,7 +19,9 @@ class TextformfeildWidget extends StatelessWidget {
       required this.textInputType,
       this.picon,
       this.sicon,
-      this.onpress, required this.isPass});
+      this.onpress,
+      required this.isPass,required this.validator});
+ FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class TextformfeildWidget extends StatelessWidget {
         height: 50,
         width: 350,
         child: TextFormField(
+        focusNode: focusNode,
           controller: controller,
           decoration: InputDecoration(
             // enabledBorder: const OutlineInputBorder(

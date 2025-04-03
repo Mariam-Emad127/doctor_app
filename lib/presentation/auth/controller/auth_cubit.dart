@@ -1,11 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
  import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState>{
   AuthCubit():super (AuthInitial());
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController username = TextEditingController();
 
 
   Future<void> createUserWithEmailAndPassword({
@@ -69,14 +74,15 @@ class AuthCubit extends Cubit<AuthState>{
     emit(AuthLoading());
     try {
       //final credential = 
-      await FirebaseAuth.instance.signInWithEmailAndPassword (
+     // await FirebaseAuth.instance.signInWithEmailAndPassword ( email: email, password: password, );
+ UserCredential userCredential = await  FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-
       emit(AuthSucess());
      // res = "success";
     } catch (e) {
+      print("2222222222222222222222$e");
       emit(AuthError(e.toString()));
       //res = " fail";
  
