@@ -6,6 +6,7 @@ import 'package:doctor_app/presentation/user_profile/presentation/controller/pro
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -50,15 +51,17 @@ class ProfileCubit extends Cubit<ProfileState>{
       emit(ProfieLoading());
       var user=await FirebaseFirestore.instance.collection( "users").get();
       // .where("email",isEqualTo: email).get();
-       userData=await user.docs.map((e) => UserModed.fromjson(e)) .first ;
+       userData=await user.docs.map((e) => UserModed.fromjson(e)) .single ;
 
-
-      print(userData);
-      print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+String username=userData.username;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("username",username);
+      print(userData.username);
+   //   print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
       emit(ProfileSucess(user: userData));
     }catch(h){
       emit(ProfileError(h.toString()));
-      print("2222222222222222222222222${h}");}
+      print("222222222${h}");}
     return userData  ;
 
   }
@@ -117,7 +120,8 @@ if(pickfile!=null){
       File file = File(pickfile.path);
      return file;
   
-  }}
+  }
+return null;}
 
 
 

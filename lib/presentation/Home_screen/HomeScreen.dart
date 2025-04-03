@@ -14,7 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _page = 0;
-  late PageController pageController;
+  //late
+   PageController pageController = PageController();
 
   void onPageChanged(int page) {
     setState(() {
@@ -22,16 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
  
-  @override
-  void initState() {
-     pageController = PageController();
-  }
+ 
 
-
-  @override
-  void dispose() {
-    pageController.dispose();
-  }
+ 
 
   void navigate(int page) {
     pageController.jumpToPage(page);
@@ -53,8 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
-                // size:  (_page == 0) ?25:15,
-                color: (_page == 0) ? Colors.white : Colors.grey,
+                 color: (_page == 0) ? Colors.white : Colors.grey,
               ),
               label: '',
               backgroundColor: mobileprimarycolor,

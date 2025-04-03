@@ -1,11 +1,10 @@
 import 'package:doctor_app/core/routing/routes.dart';
-import 'package:doctor_app/presentation/auth/signin.dart';
-import 'package:doctor_app/presentation/auth/wedgit/iconButton.dart';
+import 'package:doctor_app/presentation/auth/controller/auth_state.dart';
+ import 'package:doctor_app/presentation/auth/wedgit/iconButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'controller/auth_cubit.dart';
-import 'controller/auth_state.dart';
 import 'wedgit/textformfeild.dart';
 
 class Loginin extends StatefulWidget {
@@ -17,51 +16,43 @@ class Loginin extends StatefulWidget {
 
 class _LogininState extends State<Loginin> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _email = TextEditingController();
-  TextEditingController _password = TextEditingController();
+ final TextEditingController _email = TextEditingController();
+ final TextEditingController _password = TextEditingController();
   bool isPass = false;
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
-      listener: (BuildContext context, state) {
-        if (state is AuthSucess) {
-          Navigator.pushReplacementNamed(
-              context,Routes.HomeScreen
-               );
-        } else if (state is AuthError) {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: const Text("Warning"),
-                content: const Text("Invalid email or password"),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Try again"),
-                  ),
-                ],
+
+
+
+
+           return Scaffold(
+            body:  BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is AuthSucess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Login Successful"), backgroundColor: Colors.green),
               );
-            },
-          );
-        }
-      },
-      builder: (BuildContext context, state) {
-        if (state is AuthLoading) {
-          return const Scaffold(
-            body: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
-          );
-        } else {
-          return Scaffold(
-            body: Form(
+               // الانتقال إلى الشاشة التالية
+//              Navigator.pushReplacementNamed(context, Routes.HomeScreen);
+                Navigator.pushReplacementNamed(context, Routes.chat);
+
+            } else if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text( state.message), backgroundColor: Colors.red),
+              );
+            }
+            else if (state is AuthLoading) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(  "loading"), backgroundColor: Colors.blue),
+              );
+            }
+          },
+            
+            
+            
+            
+         child:     Form(
               key: _formKey,
               child: Center(
                 child: SingleChildScrollView(
@@ -79,6 +70,12 @@ class _LogininState extends State<Loginin> {
                         picon: Icon(Icons.email),
                         textInputType: TextInputType.text,
                         isPass: isPass,
+                           validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter email";
+                          }
+                          return null;
+                        },
                       ),
                       TextformfeildWidget(
                         controller: _password,
@@ -98,6 +95,12 @@ class _LogininState extends State<Loginin> {
                         ),
                         textInputType: TextInputType.text,
                         isPass: isPass,
+                                 validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter password";
+                          }
+                          return null;
+                        },
                       ),
                       SizedBox(
                         height: 30,
@@ -105,20 +108,25 @@ class _LogininState extends State<Loginin> {
                       InkWell(
                           onTap: () async {
                             if (_formKey.currentState!.validate()) {
-                              final email = _email.text.trim();
-                              final password = _password.text.trim();
-
-                              context
+                         /*
+                            await  context
                                   .read<AuthCubit>()
                                   .SignInWithEmailAndPassword(
-                                    email: email.trim(),
-                                    password: password.trim(),
+                                    email: _email.text,
+                                    password: _password.text,
+                                  );
+
+                                   Navigator.pushReplacementNamed(context, Routes.HomeScreen);
+                           */
+                           BlocProvider.of<AuthCubit>(context).SignInWithEmailAndPassword(
+                                    email: _email.text.trim(),
+                                    password: _password.text.trim(),
                                   );
                             }
                             // await AuthCubit().SignInWithEmailAndPassword(email: _email.text.trim(),
                             //   password: _password.text.trim() , );
                             //
-                            // Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>HomeScreen()) );
+                            //
                           },
                           child: Button_icon(title: "Login")),
                       SizedBox(
@@ -134,11 +142,8 @@ class _LogininState extends State<Loginin> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const SignUp(),
-                              ),
-                            ),
+                            onTap: () => Navigator.pushNamed(context, Routes.signin),
+                       
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: const Text(
@@ -156,9 +161,11 @@ class _LogininState extends State<Loginin> {
                 ),
               ),
             ),
-          );
-        }
-      },
-    );
+           ));
+     
+     
   }
+
+
+
 }

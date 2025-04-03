@@ -1,19 +1,24 @@
  import 'package:flutter/material.dart';
 
  
+ 
 class OwnMessageCard extends StatelessWidget {
 
   const OwnMessageCard({super.key,
-  // required this.message
+ required this.message, required this.time
    });  
-  //final MessageModel message;
+  final String message;
+      final String time;
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.bottomRight,
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width - 45,
+         // maxWidth: MediaQuery.of(context).size.width - 45,
+         minWidth: 100,
+             maxWidth:200,// MediaQuery.of(context).size.width ,//-4, //45,
+          minHeight:6, 
         ),
         child: Card(
           elevation: 1,
@@ -29,7 +34,8 @@ class OwnMessageCard extends StatelessWidget {
                   top: 5,
                   bottom: 20,
                 ),
-                child: Text("2222222222",
+                child: Text( 
+                   message ,
                 //  message.message,
                   style: TextStyle(
                     fontSize: 16,
@@ -41,7 +47,7 @@ class OwnMessageCard extends StatelessWidget {
                 right: 10,
                 child: Row(
                   children: [
-                    Text("time",
+                    Text(time ,
                     //  message.time,
                       style: TextStyle(
                         fontSize: 13,

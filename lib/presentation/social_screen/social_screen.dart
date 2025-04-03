@@ -56,7 +56,7 @@ class _SocialScreenState extends State<SocialScreen> {
                     height: 50,
                   ),
            AddPost(
-                    photoUrl: user?.photoUrl.toString()??AppStrings.unknowmimage,
+                    photoUrl:AppStrings.unknowmimage //user?.photoUrl.toString()??AppStrings.unknowmimage,
                   ),
 
                   Expanded(

@@ -21,21 +21,27 @@ class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.HomeScreen:
+          
+
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => postCubit(),
-            child: HomeScreen(),
+          child: HomeScreen(),
           ),
         );
       case Routes.login:
+            return MaterialPageRoute(builder: (_) => Loginin());
+            /*
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   create: (context) => AuthCubit(),
                   child: Loginin(),
                 ));
+                */
       case Routes.signin:
+          //return MaterialPageRoute(builder: (_) => Loginin());
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
+            builder: (_) => BlocProvider (
                   create: (context) => AuthCubit(),
                   child: SignUp(),
                 ));
@@ -69,11 +75,15 @@ class AppRouter {
                 ));
      
       case Routes.indevedual_chat:
-     return MaterialPageRoute(builder:  (_)=>BlocProvider(
-       create: (context) => ChatCubit()..connectDevice(),
+    return MaterialPageRoute(builder: (_) => Individualpage(),settings: settings);
+
+  /*   return MaterialPageRoute(builder:  (_)=>BlocProvider(
+       create: (context) => ChatCubit(),//..connectDevice(),
        child: Individualpage(),
-     ),settings: settings);
+     ),
      
+     settings: settings);
+     */
      
       default:
         return MaterialPageRoute(
