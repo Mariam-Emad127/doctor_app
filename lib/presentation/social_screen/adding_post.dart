@@ -28,8 +28,7 @@ class _AddingPostState extends State<AddingPost> {
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
-  //  fettchUser();
+   //  fettchUser();
   }
   @override
   void dispose() {

@@ -1,10 +1,9 @@
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/presentation/chat/data/models/message_model.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:socket_io_client/socket_io_client.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 part 'chat_state.dart';
 //     
@@ -35,7 +34,7 @@ class ChatCubit extends Cubit<ChatState> {
     return contactList;
   }
 
-  
+  /*
   void initSocket() {
     print('Connecting to chat service');
 
@@ -61,7 +60,7 @@ class ChatCubit extends Cubit<ChatState> {
     });
     socket.connect();
     try {
-      socket!.onConnect((_) {
+      socket.onConnect((_) {
         print('connected to websocket 1');
       });
     } catch (e) {
@@ -77,7 +76,7 @@ socket.emit("signin", FirebaseAuth.instance.currentUser!.uid);
     });
  
   }
-
+*/
   
 /*
   Future<void> sendMessage(

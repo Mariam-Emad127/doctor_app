@@ -30,7 +30,7 @@ class CommentCubit extends Cubit<CommentState>{
       emit(CommentSucsess(comments: comments));
     } catch (e) {
        emit(CommentFailure(e.toString()));
-      print(e.toString());
+       
     }
   }
 
@@ -46,7 +46,7 @@ class CommentCubit extends Cubit<CommentState>{
 
      }catch(e){
 
-      print(e);
+    emit(CommentFailure(e.toString()));
     }
 
  }
@@ -60,7 +60,7 @@ Stream <List<CommentModel>>readcomment(String postId, ) {
 Future<void>getComment(String postId)async{
     try{
       emit(CommentLoading());
-    final streamed=await readcomment(postId);
+    final streamed=  readcomment(postId);
 streamed.listen( (comments){
   emit(CommentSucsess(comments: comments));
 

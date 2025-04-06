@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'data/post_model.dart';
 
 class SocialScreen extends StatefulWidget {
-  SocialScreen({super.key});
+  const SocialScreen({super.key});
 
   @override
   State<SocialScreen> createState() => _SocialScreenState();
@@ -49,69 +49,67 @@ class _SocialScreenState extends State<SocialScreen> {
           List<Post?>post = state.posts;
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 50,
-                  ),
-           AddPost(
-                    photoUrl:AppStrings.unknowmimage //user?.photoUrl.toString()??AppStrings.unknowmimage,
-                  ),
-
-                  Expanded(
-                    child: ListView.builder(
-                        itemCount: post.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                      radius: 16,
-                                      backgroundImage: NetworkImage(
-                                          post[index]!.profImage.toString())),
-                                  SizedBox(
-                                    width: 270,
-                                  ),
-                               DeletePost()
-
-
-                                ],
-                              ),
-                             // ( post[index].description.toString())!=null?
-                              Align(
-                                  alignment: Alignment.topLeft ,
-                                  child: Text("${post[index]?.description.toString()}",style: TextStyle(fontSize: 25),)),
-                                  //:Text( ""),
-
-                              (post[index]?.photoUrl!=null)?
-                              Container(
-                                 height: 370,
-                                 width:350,
-
-                                 child: Image.network(
-                                     post[index]!.photoUrl.toString()
-                                 )
-
-                              ):SizedBox(),
-                              React(
-                              postId:state.posts[index].postId,
-                              post:state.posts[index],
-                              )
-                             ],
-                          );
-
-                       //PostScreen(post:post[index]!);
-                        }),
-                  ),
-                ],
-              ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                       AddPost(
+                  photoUrl:AppStrings.unknowmimage //user?.photoUrl.toString()??AppStrings.unknowmimage,
+                ),
+            
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: post.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                    radius: 16,
+                                    backgroundImage: NetworkImage(
+                                        post[index]!.profImage.toString())),
+                                SizedBox(
+                                  width: 270,
+                                ),
+                             DeletePost()
+            
+            
+                              ],
+                            ),
+                           // ( post[index].description.toString())!=null?
+                            Align(
+                                alignment: Alignment.topLeft ,
+                                child: Text("${post[index]?.description.toString()}",style: TextStyle(fontSize: 25),)),
+                                //:Text( ""),
+            
+                            (post[index]?.photoUrl!=null)?
+                            SizedBox(
+                               height: 370,
+                               width:350,
+            
+                               child: Image.network(
+                                   post[index]!.photoUrl.toString()
+                               )
+            
+                            ):SizedBox(),
+                            React(
+                            postId:state.posts[index].postId,
+                            post:state.posts[index],
+                            )
+                           ],
+                        );
+            
+                     //PostScreen(post:post[index]!);
+                      }),
+                ),
+              ],
             ),
           );
         }
 
-        return Container(child: Center(child: Text("Error")));
+        return Center(child: Text("Error"));
       },
     ));
   }

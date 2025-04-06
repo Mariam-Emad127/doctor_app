@@ -34,8 +34,8 @@ class _LogininState extends State<Loginin> {
                 SnackBar(content: Text("Login Successful"), backgroundColor: Colors.green),
               );
                // الانتقال إلى الشاشة التالية
-//              Navigator.pushReplacementNamed(context, Routes.HomeScreen);
-                Navigator.pushReplacementNamed(context, Routes.chat);
+              Navigator.pushReplacementNamed(context, Routes.HomeScreen);
+//                Navigator.pushReplacementNamed(context, Routes.chat);
 
             } else if (state is AuthError) {
               ScaffoldMessenger.of(context).showSnackBar(

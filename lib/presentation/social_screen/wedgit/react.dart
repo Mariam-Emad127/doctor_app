@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class React extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final postId;
   final Post? post;
 

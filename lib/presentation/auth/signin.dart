@@ -49,7 +49,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Text("SignuP",
                       style: const TextStyle(
-                        color: const Color(0xFF2260FF),
+                        color:   Color(0xFF2260FF),
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       )),

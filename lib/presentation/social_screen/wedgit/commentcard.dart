@@ -51,12 +51,12 @@ class _CommentcardState extends State<Commentcard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("${state.comments[index].name}",
+                            Text(state.comments[index].name,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black)),
                            
-                            Text("${state.comments[index].text}",
+                            Text(state.comments[index].text,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey))

@@ -31,7 +31,7 @@ class ProfileCubit extends Cubit<ProfileState>{
 
       final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
       print("File uploaded successfully: $publicUrl");
-      String docId=const Uuid().v1();
+     // String docId=const Uuid().v1();
       FirebaseFirestore.instance.collection( "users").doc(Uid).update({"photoUrl":publicUrl});
       //emit(ProfileSucess( ));
       return publicUrl;
@@ -45,18 +45,17 @@ class ProfileCubit extends Cubit<ProfileState>{
   }
 
   Future<UserModed?> getUserData( )async{
-//String email
-   UserModed? userData;
+    UserModed? userData;
     try{
       emit(ProfieLoading());
       var user=await FirebaseFirestore.instance.collection( "users").get();
       // .where("email",isEqualTo: email).get();
-       userData=await user.docs.map((e) => UserModed.fromjson(e)) .single ;
+       userData=  user.docs.map((e) => UserModed.fromjson(e)) .single ;
 
 String username=userData.username;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("username",username);
-      print(userData.username);
+     // print(userData.username);
    //   print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
       emit(ProfileSucess(user: userData));
     }catch(h){
@@ -82,7 +81,7 @@ String username=userData.username;
 //
 //
 //   }
-  Future<String> uploadProfileImageToSupabas({required File file, required String fileName,required String Uid})
+  Future<String> uploadProfileImageToSupabas({required File file, required String fileName,required String uid})
   async {
    
      final supabase = Supabase.instance.client;
@@ -100,7 +99,7 @@ String username=userData.username;
       final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
       print("File uploaded successfully: $publicUrl");
       //String docId=const Uuid().v1();
-      FirebaseFirestore.instance.collection( "users").doc(Uid).update({"photoUrl":publicUrl});// .collection("photourl").doc().set( {"photoUrl":publicUrl});
+      FirebaseFirestore.instance.collection( "users").doc(uid).update({"photoUrl":publicUrl});// .collection("photourl").doc().set( {"photoUrl":publicUrl});
       //emit(ProfileSucess( ));
       return publicUrl;
     }

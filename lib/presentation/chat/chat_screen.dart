@@ -46,7 +46,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   return 
                   InkWell(
             onTap: () {
-               Navigator.pushNamed(context, Routes.indevedual_chat,arguments: {
+               Navigator.pushNamed(context, Routes.indevedualChat,arguments: {
                 "recname":  users[index].username.toString(),
                 "reciver":  users[index].uid.toString()
               });
