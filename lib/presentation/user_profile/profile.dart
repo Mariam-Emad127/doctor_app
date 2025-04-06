@@ -50,7 +50,7 @@ if(state is ProfieLoading ){
                       fileName:
                           "profile/${file!.path.split("/").last} ", //"pppp",  //,"file!.path ,
                       file: file,
-                      Uid: FirebaseAuth.instance.currentUser!.uid);
+                      uid: FirebaseAuth.instance.currentUser!.uid);
                 },
                 child: CircleAvatar(
                     radius: 50,

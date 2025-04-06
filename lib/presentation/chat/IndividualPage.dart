@@ -17,7 +17,7 @@ class Individualpage extends StatefulWidget {
 }
 
 class _IndividualpageState extends State<Individualpage> {
-     ScrollController _controller=ScrollController(); 
+     final ScrollController _controller=ScrollController(); 
   final TextEditingController _textEditingController = TextEditingController();
   String recname = "llllllllllll";
   String reciver = "llllllllllll";
@@ -119,18 +119,7 @@ class _IndividualpageState extends State<Individualpage> {
   void initState() {
     super.initState();
     initSocket();
-    //_controller.animateTo( _controller.position.maxScrollExtent, duration: Duration(milliseconds: 500), // ⏳ مدة الحركة
-      //curve: Curves.easeOut,); 
-  /*
-   WidgetsBinding.instance.addPostFrameCallback((_) => {
-          _controller.animateTo(
-            0.0,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeIn,
-          )
-   });
-   */
-    //context.read<ChatCubit>().initSocket();
+ 
   }
 
   @override
@@ -190,8 +179,7 @@ class _IndividualpageState extends State<Individualpage> {
                 itemBuilder: (BuildContext context, int index) {
                   //if (messageList[index].type == "OwnMessage") {
                   if (messageList[index].sender == senderUid) {
-                    //OwnMessage
-                    return OwnMessageCard(
+                     return OwnMessageCard(
                         message: messageList[index].msgContent, time:messageList[index].time,);
                   } else if (messageList[index].type == "othermessage") {
                     return ReplyCard(
@@ -203,7 +191,7 @@ class _IndividualpageState extends State<Individualpage> {
                   }
                 },
               )),
-          sendBubble(
+          SendBubble(
               messageController: _textEditingController,
               onPressed: () async {
                 // context.read<ChatCubit>().sendMessage(  FirebaseAuth.instance.currentUser!.uid, _textEditingController.text, reciver) ;

@@ -1,7 +1,8 @@
-// ignore: file_names
-import 'package:doctor_app/core/utils/color.dart';
+// ignore_for_file: file_names
+
 import 'package:doctor_app/core/utils/global_variable.dart';
 import 'package:flutter/material.dart';
+import 'package:doctor_app/core/utils/color.dart';
 
 import '../../core/routing/routes.dart';
 
@@ -37,9 +38,9 @@ class _HomeScreenState extends State<HomeScreen> {
    
         body: PageView(
           controller: pageController,
-          children: GlobalVariable,
           onPageChanged: onPageChanged,
           physics: NeverScrollableScrollPhysics(),
+          children:  globalVariable,
         ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: mobileprimarycolor,
@@ -54,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.medical_information,
+                Icons.note,
                 color: (_page == 1) ? Colors.white : Colors.grey,
               ),
               label: '',

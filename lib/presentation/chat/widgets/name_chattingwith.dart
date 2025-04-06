@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class NameChattingwith extends StatelessWidget {
-  final String Name;
-  const NameChattingwith({super.key, required this.Name});
+  final String name;
+  const NameChattingwith({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +20,12 @@ class NameChattingwith extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 200,//size.width * 0.60,
-              child: Container(
-                child: Text(
-                 Name,// 'Chat',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
-                  textAlign: TextAlign.left,
-                ),
+              child: Text(
+               name,// 'Chat',
+                style: TextStyle(fontSize: 15, color: Colors.white),
+                textAlign: TextAlign.left,
               ),
             ),
           ],

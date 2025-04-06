@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class sendBubble extends StatelessWidget {
+class SendBubble extends StatelessWidget {
   final TextEditingController messageController;
   final VoidCallback onPressed;
-  const sendBubble({super.key, required this.messageController, required this.onPressed});
+  const SendBubble({super.key, required this.messageController, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

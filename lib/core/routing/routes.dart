@@ -13,5 +13,5 @@ static const String Profole_screen="/profile";
 static const String comment_screen="/comment";
  static const String chat="/chat_screen";
 
- static const String indevedual_chat="/IndividualPage";
+ static const String indevedualChat="/IndividualPage";
 }

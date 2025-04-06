@@ -31,7 +31,7 @@ class AuthCubit extends Cubit<AuthState>{
           password: password,
         );
 
-        print('User ID: ${credential.user!.uid}'); // Print UID for debugging
+//        print('User ID: ${credential.user!.uid}'); // Print UID for debugging
 
         // Save additional user data in Firestore
         await FirebaseFirestore.instance
@@ -51,10 +51,10 @@ class AuthCubit extends Cubit<AuthState>{
     } on FirebaseAuthException catch (e) {
       // Handle FirebaseAuth-specific errors
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+       // print('The password provided is too weak.');
         emit(AuthError('The password provided is too weak.'));
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        //print('The account already exists for that email.');
         emit(AuthError('The account already exists for that email.'));
       } else {
         print(e.message);
@@ -70,25 +70,20 @@ class AuthCubit extends Cubit<AuthState>{
 
   // ignore: non_constant_identifier_names
   Future<void> SignInWithEmailAndPassword({required String email,required String password})async {
-   //late String res ;//= " sucsess";
-    emit(AuthLoading());
+     emit(AuthLoading());
     try {
-      //final credential = 
-     // await FirebaseAuth.instance.signInWithEmailAndPassword ( email: email, password: password, );
- UserCredential userCredential = await  FirebaseAuth.instance.signInWithEmailAndPassword(
+ //UserCredential userCredential = await 
+  FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       emit(AuthSucess());
-     // res = "success";
-    } catch (e) {
-      print("2222222222222222222222$e");
+      } catch (e) {
+     // print("2222222222222222222222$e");
       emit(AuthError(e.toString()));
-      //res = " fail";
- 
+  
     }
-   // return res;
-  }
+   }
 
 
 

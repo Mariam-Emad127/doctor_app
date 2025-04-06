@@ -17,7 +17,7 @@ class CommentLoading extends CommentState {
 
 class CommentSucsess extends CommentState {
   final List<CommentModel > comments;
-  CommentSucsess( {required this.comments});
+  const CommentSucsess( {required this.comments});
   @override
   List<Object> get props => [ comments];
 }

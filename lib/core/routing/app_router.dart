@@ -74,7 +74,7 @@ class AppRouter {
                   child:ChatScreen( ),
                 ));
      
-      case Routes.indevedual_chat:
+      case Routes.indevedualChat:
     return MaterialPageRoute(builder: (_) => Individualpage(),settings: settings);
 
   /*   return MaterialPageRoute(builder:  (_)=>BlocProvider(
