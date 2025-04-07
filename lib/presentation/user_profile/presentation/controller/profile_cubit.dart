@@ -5,7 +5,6 @@ import 'package:doctor_app/presentation/user_profile/presentation/controller/pro
  import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:uuid/uuid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -30,7 +29,7 @@ class ProfileCubit extends Cubit<ProfileState>{
       }
 
       final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
-      print("File uploaded successfully: $publicUrl");
+     // print("File uploaded successfully: $publicUrl");
      // String docId=const Uuid().v1();
       FirebaseFirestore.instance.collection( "users").doc(Uid).update({"photoUrl":publicUrl});
       //emit(ProfileSucess( ));
@@ -55,8 +54,6 @@ class ProfileCubit extends Cubit<ProfileState>{
 String username=userData.username;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("username",username);
-     // print(userData.username);
-   //   print("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
       emit(ProfileSucess(user: userData));
     }catch(h){
       emit(ProfileError(h.toString()));

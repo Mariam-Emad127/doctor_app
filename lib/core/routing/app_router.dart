@@ -6,6 +6,7 @@ import 'package:doctor_app/presentation/auth/signin.dart';
 import 'package:doctor_app/presentation/chat/IndividualPage.dart';
 import 'package:doctor_app/presentation/chat/chat_screen.dart';
 import 'package:doctor_app/presentation/chat/controller/cubit/chat_cubit.dart';
+import 'package:doctor_app/presentation/notes/wedgit/notes_screen.dart';
 import 'package:doctor_app/presentation/onboarding/onboarding.dart';
 import 'package:doctor_app/presentation/social_screen/adding_post.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
@@ -76,6 +77,11 @@ class AppRouter {
      
       case Routes.indevedualChat:
     return MaterialPageRoute(builder: (_) => Individualpage(),settings: settings);
+
+    case Routes.noteScreen:
+    return MaterialPageRoute(builder: (_) => NotesScreen() );
+
+
 
   /*   return MaterialPageRoute(builder:  (_)=>BlocProvider(
        create: (context) => ChatCubit(),//..connectDevice(),

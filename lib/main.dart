@@ -36,7 +36,7 @@ BlocProvider(create: (context)=>AuthCubit() )
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             
-               initialRoute: Routes.login,
+               initialRoute: Routes.noteScreen,
                onGenerateRoute:appRouter.onGenerateRoute,
               
          ),

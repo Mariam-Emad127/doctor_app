@@ -8,10 +8,8 @@ List<Widget>globalVariable=[
 SocialScreen(),
   ChatScreen(),
 
-//Notificationscreen(),
-   Center(child: Text("user. ")),
+    Center(child: Text("user. ")),
  
-//Notificationscreen(),
-  Center(child: Text("user. ")),
+   Center(child: Text("user. ")),
   Center(child: Text("user. ")),
 ];
