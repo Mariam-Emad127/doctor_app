@@ -84,9 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
         Navigator.pushNamed(context, Routes.social_screen);
         break;
       case 1:
-        Navigator.pushNamed(context, "/second");
+        Navigator.pushNamed(context, Routes.noteScreen);
           case 2:
                   Navigator.pushNamed(context, Routes.chat);
+        break;
+         
+                   case 3:
+                //  Navigator.pushNamed(context, );
         break;
          
     }
