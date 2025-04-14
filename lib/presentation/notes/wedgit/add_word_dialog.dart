@@ -1,79 +1,202 @@
+import 'package:doctor_app/presentation/notes/controller/cubit/note_cubit.dart';
+import 'package:doctor_app/presentation/notes/data/models/note_model.dart';
+import 'package:doctor_app/presentation/notes/wedgit/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddWordDialog extends StatefulWidget {
   const AddWordDialog({super.key});
+
   @override
   State<AddWordDialog> createState() => _AddWordDialogState();
 }
 
 class _AddWordDialogState extends State<AddWordDialog> {
-  final GlobalKey<FormState>formKey= GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  TextEditingController titleContrlller = TextEditingController();
+  TextEditingController subtitleContrlller = TextEditingController();
+  //String? title, subTitle;
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
       child: AnimatedContainer(
-            padding:const EdgeInsets.all(15),
-            duration: const Duration(milliseconds: 750),
-          //  color: Color(WriteDataCubit.get(context).colorCode),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-
-                  //ArabicOrEnglishWidget(
-                   // colorCode: WriteDataCubit.get(context).colorCode,
-                   // arabicIsSelected: WriteDataCubit.get(context).isArabic,
-                  //),
-                  const SizedBox(height: 8,),
-
-                 // ColorsWidget(activeColorCode: WriteDataCubit.get(context).colorCode),
-                  const SizedBox(height: 10,),
-
-                  //App(formKey: formKey, label: "New Word"),
-                  TextFormField(
-                    key: formKey,
-                    decoration:   InputDecoration( 
-        label: Text( "New Word"),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide:const BorderSide(color: Colors.white,width: 2),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide:const BorderSide(color: Colors.white,width: 2),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide:const BorderSide(color: Colors.red,width: 2),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide:const BorderSide(color: Colors.red,width: 2),
-        ),
-      )
-  
- ),
-                  const SizedBox(height: 15,),
-
-                   IconButton(
-                    icon: Icon(Icons.abc_outlined),
-                   // colorCode: WriteDataCubit.get(context).colorCode, 
-                    onPressed: (){
-                      if(formKey.currentState!.validate()){
-                        //WriteDataCubit.get(context).addWord();
-                        //ReadDataCubit.get(context).getWords();
+        padding: const EdgeInsets.all(15),
+        duration: const Duration(milliseconds: 750),
+        child: SingleChildScrollView(
+          child: Form(
+              key: formKey,
+              // autovalidateMode: autovalidateMode,
+              child: Column(children: [
+                const SizedBox(
+                  height: 32,
+                ),
+                CustomTextField(
+                  controller: titleContrlller,
+                  // onSaved: (value) {   title = value;  },
+                  hint: 'title',
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                CustomTextField(
+                  controller: subtitleContrlller, //TextEditingController(),
+                  // onSaved: (value) {subTitle = value; },
+                  hint: 'content',
+                  maxLines: 5,
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+              /*
+                IconButton(
+                  icon: const Icon(
+                    Icons.dangerous,
+                    color: Colors.blue,
+                  ),
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      context.read<NoteCubit>().addNote(NoteModel(
+                          title: titleContrlller.text.trim(),
+                          subTitle: subtitleContrlller.text,
+                          date: DateTime.now().toString()));
+                      BlocProvider.of<NoteCubit>(context).fetchAllData();
+                    }
+                    setState(() {});
+                  },
+                )
+              */
+                  BlocBuilder<NoteCubit, NoteState>(
+                    builder: (context, state) {
+                      if (state is NoteSucess) {
+                        return IconButton(
+                          icon: const Icon(
+                            Icons.dangerous,
+                            color: Colors.blue,
+                          ),
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              context.read<NoteCubit>().addNote(NoteModel(
+                                  title: titleContrlller.toString(),
+                                  subTitle: subtitleContrlller.toString(),
+                                  date: DateTime.now().toString()));
+                              setState(() {});
+                            }
+                          },
+                        );
+                      } else if (state is NoteLoading) {
+                        return Text("88888888");
+                      } else if (state is NoteError) {
+                        return Text("88888888");
+                      } else {
+                        return Text("9999999");
                       }
                     },
-                  ),
-                ],
-              ),
-            ),
-          )
-       
-      
+                  )
+               
+               
+               
+              ])),
+        ),
+      ),
     );
-  }
 
-  //SnackBar _getSnackBar(String message) => SnackBar(content: Text(message),backgroundColor: ColorManager.red,);
+    /*   
+    return BlocProvider(
+      create: (context) => NoteCubit(),
+      child: BlocConsumer<NoteCubit, NoteState>(listener: (context, state) {
+        if (state is NoteError) {}
+
+        if (state is AddNoteSucess) {
+          BlocProvider.of<NoteCubit>(context).fetchAllData();
+          Navigator.pop(context);
+        }
+      }, builder: (context, state) {
+        return Dialog(
+          child: AnimatedContainer(
+            padding: const EdgeInsets.all(15),
+            duration: const Duration(milliseconds: 750),
+            child: SingleChildScrollView(
+              child: Form(
+                  key: formKey,
+                  // autovalidateMode: autovalidateMode,
+                  child: Column(children: [
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    CustomTextField(
+                      controller: titleContrlller,
+                     // onSaved: (value) {   title = value;  },
+                      hint: 'title',
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    CustomTextField(
+                      controller: subtitleContrlller,//TextEditingController(),
+                     // onSaved: (value) {subTitle = value; },
+                      hint: 'content',
+                      maxLines: 5,
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    IconButton(
+                            icon: const Icon(
+                              Icons.dangerous,
+                              color: Colors.blue,
+                            ),
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                context.read<NoteCubit>().addNote(NoteModel(
+                                    title:  titleContrlller.text.trim(),
+                                    subTitle: subtitleContrlller.text,
+                                    date: DateTime.now().toString()));
+                              BlocProvider.of<NoteCubit>(context).fetchAllData();
+                              }
+                                 setState(() {});
+                            },
+                          )
+                
+                  ])),
+            ),
+          ),
+        );
+  
+  
+    }),
+    );
+ */
+  }
 }
+ /*
+                    BlocBuilder<NoteCubit, NoteState>(
+                      builder: (context, state) {
+                        if (state is NoteSucess) {
+                          return IconButton(
+                            icon: const Icon(
+                              Icons.dangerous,
+                              color: Colors.blue,
+                            ),
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                context.read<NoteCubit>().addNote(NoteModel(
+                                    title: title.toString(),
+                                    subTitle: subTitle.toString(),
+                                    date: DateTime.now().toString()));
+                                setState(() {});
+                              }
+                            },
+                          );
+                        } else if (state is NoteLoading) {
+                          return Text("88888888");
+                        } else if (state is NoteError) {
+                          return Text("88888888");
+                        } else {
+                          return Text("9999999");
+                        }
+                      },
+                    )
+                 */
+                 
+                 

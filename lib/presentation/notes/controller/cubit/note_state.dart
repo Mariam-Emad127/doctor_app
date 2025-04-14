@@ -21,3 +21,5 @@ final class NoteInitial extends NoteState {}
  
 
 }
+ class AddNoteSucess extends NoteState {}
+

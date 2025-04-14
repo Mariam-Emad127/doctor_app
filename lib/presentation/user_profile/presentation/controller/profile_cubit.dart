@@ -13,25 +13,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ProfileCubit extends Cubit<ProfileState>{
   ProfileCubit():super(ProfileInitial());
 
-  Future<String> uploadProfileImageToSupabase({required File file, required String fileName,required String Uid})
+  Future<String> uploadProfileImageToSupabase({required File file, required String fileName,required String uid})
   async {
 
     final supabase = Supabase.instance.client;
     try {
       emit(ProfieLoading());
       // Upload the file to the Supabase storage bucket
-      final response = await supabase.storage.from("Doctor").upload("$fileName/", file);
+      //final response =
+       await supabase.storage.from("Doctor").upload("$fileName/", file);
+     /*
       if (response != null) {
         print('Image uploaded successfully');
       }
       else {
         print('Errorrrrrrr');
       }
-
+*/
       final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
      // print("File uploaded successfully: $publicUrl");
      // String docId=const Uuid().v1();
-      FirebaseFirestore.instance.collection( "users").doc(Uid).update({"photoUrl":publicUrl});
+      FirebaseFirestore.instance.collection( "users").doc(uid).update({"photoUrl":publicUrl});
       //emit(ProfileSucess( ));
       return publicUrl;
     }
@@ -85,14 +87,16 @@ String username=userData.username;
     try {
       emit(ProfieLoading());
       // Upload the file to the Supabase storage bucket
-      final response = await supabase.storage.from("Doctor").upload("$fileName/", file);
+      //final response =
+       await supabase.storage.from("Doctor").upload("$fileName/", file);
+   /*
       if (response != null) {
         print('Image uploaded successfully');
       }
       else {
         print('Errorrrrrrr');
       }
-
+*/
       final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
       print("File uploaded successfully: $publicUrl");
       //String docId=const Uuid().v1();
