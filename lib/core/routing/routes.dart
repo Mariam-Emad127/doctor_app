@@ -15,5 +15,7 @@ static const String comment_screen="/comment";
 
  static const String indevedualChat="/IndividualPage";
  static const String noteScreen ="/notes_screen";
+ static const String listNotes ="/list_notes";
+ static const String addWordDialog="add_word_dialog";
 
 }
