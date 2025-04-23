@@ -36,7 +36,7 @@ class NoteItem extends StatelessWidget {
           children: [
             ListTile(
               title: Text(
-                "hhhhh${note.title}",
+                "hhh${note.title}",
                 style: const TextStyle(
                   fontSize: 26,
                   color: Colors.black,
