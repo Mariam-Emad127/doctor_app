@@ -2,6 +2,7 @@ import 'package:doctor_app/core/routing/app_router.dart';
 import 'package:doctor_app/core/routing/routes.dart';
 import 'package:doctor_app/core/utils/string.dart';
 import 'package:doctor_app/presentation/auth/controller/auth_cubit.dart';
+import 'package:doctor_app/presentation/notes/controller/cubit/note_cubit.dart';
 import 'package:doctor_app/presentation/notes/data/models/note_model.dart';
 import 'package:doctor_app/presentation/notes/data/note_type_adapter.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -40,7 +41,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AuthCubit())],
+      providers: [
+        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => NoteCubit()..fetchAllData())
+        
+        ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',

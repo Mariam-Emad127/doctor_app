@@ -6,11 +6,11 @@ class CustomTextField extends StatelessWidget {
       required this.hint,
       this.maxLines = 1,
       this.onSaved,
-      this.onChanged, required this.controller});
+      this.onChanged,   this.controller});
 
   final String hint;
   final int maxLines;
-final TextEditingController controller;
+final TextEditingController? controller;
   final void Function(String?)? onSaved;
 
   final Function(String)? onChanged;

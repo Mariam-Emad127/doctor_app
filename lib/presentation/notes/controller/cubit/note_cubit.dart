@@ -18,12 +18,13 @@ notes=box.values.toList();
 
  }
 
-  addNote(NoteModel note) {
-    emit(NoteLoading());
+  Future<void> addNote(NoteModel note)async {
+    emit(NoteInitial());
     try {
-      var box = Hive.box<NoteModel>(AppStrings.boxname);
-      box.add(note);
-      print('Saving note: ${note.title} - ${note.subTitle}');
+      var box =  Hive.box<NoteModel>(AppStrings.boxname);
+     emit(NoteLoading());
+     await box.add(note);
+       print('Saving note: ${note.title} - ${note.subTitle}');
       emit(AddNoteSucess());
     } catch (e) {
       emit(NoteError(e.toString()));
