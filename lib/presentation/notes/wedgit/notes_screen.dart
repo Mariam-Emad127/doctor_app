@@ -16,9 +16,7 @@ class NotesScreen extends StatefulWidget {
 class _NotesScreenState extends State<NotesScreen> {
   @override
   void initState() {
-    setState(() {
-      
-    });
+    setState(() {});
     BlocProvider.of<NoteCubit>(context).fetchAllData();
     super.initState();
   }
@@ -26,67 +24,75 @@ class _NotesScreenState extends State<NotesScreen> {
   List<NoteModel> notes = [];
   @override
   void didChangeDependencies() {
-    BlocProvider.of<NoteCubit>(context).fetchAllData();
+   // BlocProvider.of<NoteCubit>(context).fetchAllData();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    return
-     Scaffold(
-         floatingActionButton: FloatingActionButton(
-           backgroundColor: Colors.blue,
-           onPressed: () {
-             showModalBottomSheet(
-                 isScrollControlled: true,
-                 shape: RoundedRectangleBorder(
-                   borderRadius: BorderRadius.circular(16),
-                 ),
-                 context: context,
-                 builder: (context) {
-                   return const AddWordDialog();
-                 });
-           },
-           child: const Icon(
-             Icons.add,
-             color: Colors.black,
-           ),
-         ),
-     
+    return BlocProvider<NoteCubit>(
+      create: (context) => NoteCubit()..fetchAllData(),
+      child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.blue,
+            onPressed: () {
+              showModalBottomSheet(
+                  isScrollControlled: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  context: context,
+                  builder: (context) {
+                    return const AddWordDialog();
+                  });
+            },
+            child: const Icon(
+              Icons.add,
+              color: Colors.black,
+            ),
+          ),
           appBar: AppBar(
-           title: const Text("Notes"),
-         ),
-         body: Padding(
-             padding: const EdgeInsets.all(10),
-             child: BlocConsumer<NoteCubit, NoteState>(
-               listener: (context, state) {
+            title: const Text("Notes"),
+          ),
+          body: Padding(
+              padding: const EdgeInsets.all(10),
+              //  if (state is NoteError) {}
+              //if (state is NoteLoading) {
+              // return CircularProgressIndicator();
+              //}
+              // if (state is NoteSucess) {
+              //  BlocProvider.of<NoteCubit>(context).fetchAllData();
+              //  Navigator.pop(context);
+              //  }
+              child: BlocConsumer<NoteCubit, NoteState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state is NoteSucess) {
+                    BlocProvider.of<NoteCubit>(context).fetchAllData();
+                    notes = state.note;
+                    return ListView.builder(
+                        itemCount: notes.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            notes.isEmpty
+                                ? Container()
+                                : NoteItem(
+                                    note: notes[index],
+                                    //title: notes[index].title, subtitle: notes[index].subTitle,
+                                  ));
+                  } else if (state is NoteError) {
+                    return Container(
+                      color: Colors.white,
+                    );
+                  } else {
+                    return Container(
+                      color: Colors.white,
+                    );
+                  }
                 },
-               builder: (context, state) {
-                  if (state is NoteLoading) {
-                   return CircularProgressIndicator();
-                 } else if (state is NoteSucess) {
-                   notes = state.note;
-                   return ListView.builder(
-                       itemCount: notes.length,
-                       itemBuilder: (BuildContext context, int index) =>
-                           notes.isEmpty
-                               ? Container()
-                               : NoteItem(
-                                   note: notes[index],
-                                   //title: notes[index].title, subtitle: notes[index].subTitle,
-                                 ));
-                 } else if (state is NoteError) {
-                   return Container(
-                     color: Colors.white,
-                   );
-                 } else {
-                   return Container(
-                     color: Colors.white,
-                   );
-                 }
-               },
-             )
-             //},
-             ));
+              )
+
+              //},
+              )),
+    );
   }
 }

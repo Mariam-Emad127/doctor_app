@@ -1,3 +1,4 @@
+import 'package:doctor_app/core/routing/routes.dart';
 import 'package:doctor_app/presentation/notes/controller/cubit/note_cubit.dart';
 import 'package:doctor_app/presentation/notes/data/models/note_model.dart';
 import 'package:doctor_app/presentation/notes/wedgit/custom_text_field.dart';
@@ -51,9 +52,62 @@ class _AddWordDialogState extends State<AddWordDialog> {
               const SizedBox(
                 height: 32,
               ),
+          /*
               BlocBuilder<NoteCubit, NoteState>(
                 builder: (context, state) {
-                  if(state is NoteSucess){     return Container(
+                  if(state is NoteSucess){ 
+                        return Container(
+                    alignment: Alignment.center,
+                    height: 30,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.blue, width: 2),
+                        borderRadius: BorderRadius.circular(13)),
+                    child: InkWell(
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                               
+  setState(() {
+                                BlocProvider.of<NoteCubit>(context)
+                                .fetchAllData( );
+                          });
+                            var currentDate = DateTime.now();
+
+                            var formattedCurrentDate =
+                                DateFormat('dd-mm-yyyy').format(currentDate);
+
+                            var noteModel = NoteModel(
+                              title: title!,
+                              subTitle: subTitle!,
+                              date: formattedCurrentDate,
+                            );
+
+                            BlocProvider.of<NoteCubit>(context)
+                                .addNote(noteModel);
+  
+                        
+                       
+
+                            Navigator.pop(context);
+                      
+                          }
+                  
+                        },
+                        child: Text(
+                          "save",
+                          style: TextStyle(color: Colors.blueAccent),
+                        )),
+                  );
+               }
+               else{return Container();}
+              },
+              )
+           */
+           
+             
+             
+              Container(
                     alignment: Alignment.center,
                     height: 30,
                     width: 100,
@@ -77,11 +131,8 @@ class _AddWordDialogState extends State<AddWordDialog> {
 
                             BlocProvider.of<NoteCubit>(context)
                                 .addNote(noteModel);
-
-                            BlocProvider.of<NoteCubit>(context)
-                                .fetchAllData( );
-
-                            Navigator.pop(context);
+ 
+                           Navigator.pushNamed(context, Routes.noteScreen);
                           }
                           setState(() {});
                         },
@@ -89,14 +140,9 @@ class _AddWordDialogState extends State<AddWordDialog> {
                           "save",
                           style: TextStyle(color: Colors.blueAccent),
                         )),
-                  );
+                  )
               
               
-              
-               }
-               else{return Container();}
-              },
-              )
             ]),
           ),
         ),
