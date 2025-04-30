@@ -7,7 +7,6 @@ import 'package:doctor_app/presentation/chat/IndividualPage.dart';
 import 'package:doctor_app/presentation/chat/chat_screen.dart';
 import 'package:doctor_app/presentation/chat/controller/cubit/chat_cubit.dart';
 import 'package:doctor_app/presentation/notes/controller/cubit/note_cubit.dart';
-import 'package:doctor_app/presentation/notes/wedgit/add_word_dialog.dart';
 import 'package:doctor_app/presentation/notes/wedgit/notes_screen.dart';
 import 'package:doctor_app/presentation/onboarding/onboarding.dart';
 import 'package:doctor_app/presentation/social_screen/adding_post.dart';
@@ -84,10 +83,17 @@ class AppRouter {
                   create: (context) => NoteCubit()..fetchAllData(),
                   child: NotesScreen(),
                 ));
-
+  
+  /*
+  case Routes.noteScreen:
+        return MaterialPageRoute(
+            builder: (_)=> NotesScreen(),
+                );
       case Routes.addWordDialog:
         return MaterialPageRoute(
           builder: (_) => AddWordDialog(),);
+
+          */
  /*
  return MaterialPageRoute(
             builder: (_) => BlocProvider<NoteCubit>(

@@ -7,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 part 'note_state.dart';
 
 class NoteCubit extends Cubit<NoteState> {
-  NoteCubit() : super(NoteInitial());
+  NoteCubit() : super(NoteInitial()); 
 
 List<NoteModel> notes=[];
 fetchAllData(){
@@ -24,8 +24,10 @@ notes=box.values.toList();
       var box =  Hive.box<NoteModel>(AppStrings.boxname);
      emit(NoteLoading());
      await box.add(note);
+     notes=box.values.toList();
        print('Saving note: ${note.title} - ${note.subTitle}');
-      emit(AddNoteSucess());
+       emit(AddNoteSucess());
+     
     } catch (e) {
       emit(NoteError(e.toString()));
     }

@@ -8,12 +8,11 @@ class NoteItem extends StatelessWidget {
   const NoteItem({Key? key, 
   required this.note
   }) : super(key: key);
-//final String title;
-
+ 
   final NoteModel note;
   @override
   Widget build(BuildContext context) {
-<<<<<<< Updated upstream
+ 
     return GestureDetector(
       onTap: () {
       /*
@@ -41,12 +40,12 @@ class NoteItem extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 26,
                   color: Colors.black,
-=======
+ 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-   
+ 
         },
         child: Container(
           decoration: BoxDecoration(
@@ -87,44 +86,21 @@ class NoteItem extends StatelessWidget {
                     color: Colors.blueAccent,
                     size: 30,
                   ),
->>>>>>> Stashed changes
+ 
                 ),
               ),
-              subtitle: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  note.subTitle,
+                  note.date,
                   style: TextStyle(
-                    fontSize: 18,
                     // ignore: deprecated_member_use
                     color: Colors.black.withOpacity(.4),
                   ),
                 ),
-              ),
-              trailing: IconButton(
-                onPressed: () {
-                  note.delete();
-
-                  BlocProvider.of<NoteCubit>(context).fetchAllData();
-                },
-                icon: const Icon(
-                  Icons.delete,
-                  color: Colors.black,
-                  size: 30,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Text(
-                note.date,
-                style: TextStyle(
-                  // ignore: deprecated_member_use
-                  color: Colors.black.withOpacity(.4),
-                ),
-              ),
-            )
-          ],
+              ), 
+            ],
+          ),
         ),
       ),
     );
