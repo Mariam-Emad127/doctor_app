@@ -59,7 +59,7 @@ class _LogininState extends State<Loginin> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 300,
+                        height: 150,
                       ),
                       //Center(child:
                       SvgPicture.asset("assest/medical-records.svg",
