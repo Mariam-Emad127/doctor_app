@@ -9,6 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -18,15 +19,14 @@ void main() async {
 
   Hive.registerAdapter<NoteModel>(NoteTypeAdapter());
   await Hive.openBox<NoteModel>(AppStrings.boxname);
-  //  Supabase.initialize(
-  //  url: 'https://etnasuvxeixhssutzmyo.supabase.co',
-  // anonKey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bmFzdXZ4ZWl4aHNzdXR6bXlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0ODIxMDksImV4cCI6MjA0ODA1ODEwOX0.vlqWr_ClfkHUJrGHTPEpY7FiJrVmtLjBbEmbmlgCpIk");
+    Supabase.initialize(
+    url: 'https://etnasuvxeixhssutzmyo.supabase.co',
+   anonKey:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0bmFzdXZ4ZWl4aHNzdXR6bXlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI0ODIxMDksImV4cCI6MjA0ODA1ODEwOX0.vlqWr_ClfkHUJrGHTPEpY7FiJrVmtLjBbEmbmlgCpIk");
 
   Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ); 
-  //  IO.Socket? socket;
-  //  List<MessageModel>messageList=[];
+ 
 
   runApp(MyApp(
     appRouter: AppRouter(),
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        initialRoute: Routes.noteScreen,
+        initialRoute: Routes.login,
         onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );

@@ -1,3 +1,4 @@
+ 
 import 'package:doctor_app/core/utils/string.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_state.dart';
@@ -55,13 +56,15 @@ class _SocialScreenState extends State<SocialScreen> {
                   height: 50,
                 ),
                        AddPost(
-                  photoUrl:AppStrings.unknowmimage //user?.photoUrl.toString()??AppStrings.unknowmimage,
+                  //photoUrl:AppStrings.unknowmimage //
+                 photoUrl:  user?.photoUrl.toString()??AppStrings.unknowmimage,
                 ),
             
                 Expanded(
                   child: ListView.builder(
                       itemCount: post.length,
                       itemBuilder: (context, index) {
+                       
                         return Column(
                           children: [
                             Row(
@@ -89,10 +92,8 @@ class _SocialScreenState extends State<SocialScreen> {
                                height: 370,
                                width:350,
             
-                               child: Image.network(
-                                   post[index]!.photoUrl.toString()
-                               )
-            
+                               child:Image.network( post[index]!.photoUrl??"" )
+ 
                             ):SizedBox(),
                             React(
                             postId:state.posts[index].postId,

@@ -12,20 +12,40 @@ class NoteItem extends StatelessWidget {
   final NoteModel note;
   @override
   Widget build(BuildContext context) {
+ 
+    return GestureDetector(
+      onTap: () {
+      /*
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return EditNoteViewBody(
+              note: note,
+            );
+          }),
+        );
+*/
+      },
+      child: Container(
+        decoration: BoxDecoration(
+           borderRadius: BorderRadius.circular(16),
+        ),
+        padding: const EdgeInsets.only(left: 16, top: 24, bottom: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            ListTile(
+              title: Text(
+                "hhh${note.title}",
+                style: const TextStyle(
+                  fontSize: 26,
+                  color: Colors.black,
+ 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-        /*
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              return EditNoteViewBody(
-                note: note,
-              );
-            }),
-          );
-      */
+ 
         },
         child: Container(
           decoration: BoxDecoration(
@@ -66,6 +86,7 @@ class NoteItem extends StatelessWidget {
                     color: Colors.blueAccent,
                     size: 30,
                   ),
+ 
                 ),
               ),
               Padding(

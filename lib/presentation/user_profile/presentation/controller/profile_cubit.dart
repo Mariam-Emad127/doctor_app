@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
  import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -49,9 +50,9 @@ class ProfileCubit extends Cubit<ProfileState>{
     UserModed? userData;
     try{
       emit(ProfieLoading());
-      var user=await FirebaseFirestore.instance.collection( "users").get();
-      // .where("email",isEqualTo: email).get();
-       userData=  user.docs.map((e) => UserModed.fromjson(e)) .single ;
+      var user=await FirebaseFirestore.instance.collection( "users")//.get();
+      .where("uid",isEqualTo: FirebaseAuth.instance.currentUser!.uid).get();
+       userData=  user.docs.map((e) => UserModed.fromjson(e)).single ;
 
 String username=userData.username;
     final SharedPreferences prefs = await SharedPreferences.getInstance();
