@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doctor_app/core/utils/string.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
  import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,8 +20,7 @@ class AuthCubit extends Cubit<AuthState>{
     required String username,
   }) async {
     emit(AuthLoading()); // Emitting loading state
-   // String res = "success"; // Default result message
-
+ 
     try {
       // Check if any of the fields are empty
       if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty) {
@@ -31,8 +31,7 @@ class AuthCubit extends Cubit<AuthState>{
           password: password,
         );
 
-//        print('User ID: ${credential.user!.uid}'); // Print UID for debugging
-
+ 
         // Save additional user data in Firestore
         await FirebaseFirestore.instance
             .collection("users")
@@ -41,6 +40,7 @@ class AuthCubit extends Cubit<AuthState>{
           "username": username,
           "uid": credential.user!.uid,
           "email": email,
+          "photoUrl":AppStrings.unknowmimage
           // Add other fields if needed
         });
 
@@ -51,19 +51,14 @@ class AuthCubit extends Cubit<AuthState>{
     } on FirebaseAuthException catch (e) {
       // Handle FirebaseAuth-specific errors
       if (e.code == 'weak-password') {
-       // print('The password provided is too weak.');
-        emit(AuthError('The password provided is too weak.'));
+         emit(AuthError('The password provided is too weak.'));
       } else if (e.code == 'email-already-in-use') {
-        //print('The account already exists for that email.');
-        emit(AuthError('The account already exists for that email.'));
+         emit(AuthError('The account already exists for that email.'));
       } else {
-        print(e.message);
-        emit(AuthError(e.message ?? 'An unknown error occurred.'));
+         emit(AuthError(e.message ?? 'An unknown error occurred.'));
       }
     } catch (e) {
-      // Handle general errors
-      print('Error: $e');
-      emit(AuthError(e.toString()));
+        emit(AuthError(e.toString()));
     }
   }
 
@@ -72,15 +67,13 @@ class AuthCubit extends Cubit<AuthState>{
   Future<void> SignInWithEmailAndPassword({required String email,required String password})async {
      emit(AuthLoading());
     try {
- //UserCredential userCredential = await 
-  FirebaseAuth.instance.signInWithEmailAndPassword(
+ await  FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
       emit(AuthSucess());
       } catch (e) {
-     // print("2222222222222222222222$e");
-      emit(AuthError(e.toString()));
+       emit(AuthError(e.toString()));
   
     }
    }
@@ -91,5 +84,4 @@ class AuthCubit extends Cubit<AuthState>{
     await FirebaseAuth.instance.signOut();
   }
 
-
-}
+ }

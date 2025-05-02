@@ -16,73 +16,58 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-
-
   @override
   Widget build(BuildContext context) {
-    return    Scaffold(
-            body:    BlocListener<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is AuthSucess) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Login Successful"), backgroundColor: Colors.green),
-              );
-              // الانتقال إلى الشاشة التالية
-             // Navigator.pushReplacementNamed(context, Routes.login);
-            } else if (state is AuthError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text( "Error"), backgroundColor: Colors.red),
-              );
-            }
-          }, 
-            
-         child:  SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 150,
-                  ),
-                  SvgPicture.asset("assest/medical-records.svg",
-                      color: const Color(0xFF2260FF)),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text("SignuP",
-                      style: const TextStyle(
-                        color:   Color(0xFF2260FF),
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      )),
-               EmailPassword(),
-                  SizedBox(
-                    height: 50,
-                  ),
-              Alreadyhaveaccount(),
-                  InkWell(
-                    onTap: () async {
-                      context
-                          .read<AuthCubit>()
-                          .createUserWithEmailAndPassword(
-                              email: context.read<AuthCubit>().email.text,
-                              password: context.read<AuthCubit>().password.text,
-                              username: context.read<AuthCubit>().username.text);
-if(context.read<AuthCubit>().formKey.currentState!.validate()){
-    Navigator.pushNamed(context, Routes.login);
- }
-
-                    
-                    },
-                    child: Button_icon(title: "Signin"),
-                  ),
-               
-                ],
-              ),
+    return Scaffold(
+        body: BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is AuthSucess) {
+     Navigator.pushNamed(context, Routes.login);
+        } else if (state is AuthError) {
+        
+        }
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 30,
             ),
-      )  );
-    
-  
-  } 
+            SvgPicture.asset("assest/medical-records.svg",height:100,
+                color: const Color(0xFF2260FF)),
+            const SizedBox(
+              height: 20,
+            ),
+            Text("SignuP",
+                style: const TextStyle(
+                  color: Color(0xFF2260FF),
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                )),
+            EmailPassword(),
+            SizedBox(
+              height: 10,
+            ),
+            Alreadyhaveaccount(),
+            InkWell(
+              onTap: () async {
+                context.read<AuthCubit>().createUserWithEmailAndPassword(
+                    email: context.read<AuthCubit>().email.text,
+                    password: context.read<AuthCubit>().password.text,
+                    username: context.read<AuthCubit>().username.text);
+                if (context
+                    .read<AuthCubit>()
+                    .formKey
+                    .currentState!
+                    .validate()) {
+                  Navigator.pushNamed(context, Routes.login);
+                }
+              },
+              child: Button_icon(title: "Signin"),
+            ),
+          ],
+        ),
+      ),
+    ));
+  }
 }
-
-
- 

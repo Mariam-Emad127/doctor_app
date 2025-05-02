@@ -1,3 +1,4 @@
+import 'package:doctor_app/core/routing/routes.dart';
 import 'package:doctor_app/presentation/notes/controller/cubit/note_cubit.dart';
 import 'package:doctor_app/presentation/notes/data/models/note_model.dart';
 import 'package:doctor_app/presentation/notes/wedgit/custom_text_field.dart';
@@ -14,8 +15,7 @@ class AddWordDialog extends StatefulWidget {
 
 class _AddWordDialogState extends State<AddWordDialog> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController titleContrlller = TextEditingController();
-  TextEditingController subtitleContrlller = TextEditingController();
+ 
   String? title, subTitle;
 
   @override
@@ -41,7 +41,7 @@ class _AddWordDialogState extends State<AddWordDialog> {
                 height: 16,
               ),
               CustomTextField(
-                controller: subtitleContrlller,
+                //controller: subtitleContrlller,
                 onSaved: (value) {
                   subTitle = value;
                 },
@@ -51,9 +51,52 @@ class _AddWordDialogState extends State<AddWordDialog> {
               const SizedBox(
                 height: 32,
               ),
+
+                        Container(
+                    alignment: Alignment.center,
+                    height: 30,
+                    width: 100,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.blue, width: 2),
+                        borderRadius: BorderRadius.circular(13)),
+                    child: InkWell(
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            formKey.currentState!.save();
+                            var currentDate = DateTime.now();
+
+                            var formattedCurrentDate =
+                                DateFormat('dd-mm-yyyy').format(currentDate);
+
+                            var noteModel = NoteModel(
+                              title: title!,
+                              subTitle: subTitle!,
+                              date: formattedCurrentDate,
+                            );
+
+                            BlocProvider.of<NoteCubit>(context)
+                                .addNote(noteModel);
+
+                            BlocProvider.of<NoteCubit>(context)
+                                .fetchAllData( );
+
+                            Navigator.popAndPushNamed(context,Routes.noteScreen);
+                          }
+                          setState(() {});
+                        },
+                        child: Text(
+                          "save",
+                          style: TextStyle(color: Colors.blueAccent),
+                        )),
+                  ) 
+              
+              
+/*
               BlocBuilder<NoteCubit, NoteState>(
                 builder: (context, state) {
-                  if(state is NoteSucess){     return Container(
+                  if(state is NoteSucess){   
+                    
+                      return Container(
                     alignment: Alignment.center,
                     height: 30,
                     width: 100,
@@ -97,6 +140,7 @@ class _AddWordDialogState extends State<AddWordDialog> {
                else{return Container();}
               },
               )
+  */          
             ]),
           ),
         ),

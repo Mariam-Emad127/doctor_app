@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_state.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
-import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
+import 'package:doctor_app/presentation/user_profile/controller/profile_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

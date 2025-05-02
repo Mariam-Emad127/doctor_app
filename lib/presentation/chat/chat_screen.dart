@@ -1,6 +1,4 @@
 import 'package:doctor_app/core/routing/routes.dart';
-import 'package:doctor_app/core/utils/string.dart';
-//import 'package:doctor_app/presentation/chat/IndividualPage.dart';
 import 'package:doctor_app/presentation/chat/controller/cubit/chat_cubit.dart';
 import 'package:doctor_app/presentation/user_profile/data/user.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +51,7 @@ class _ChatScreenState extends State<ChatScreen> {
              },
                  child:  ListTile(
                     leading: CircleAvatar(
-                      backgroundImage: NetworkImage(AppStrings.unknowmimage),
+                      backgroundImage: NetworkImage(users[index].photoUrl ?? ""),
                       //(users[index].photoUrl ?? ""),
                       radius: 16,
                     ),

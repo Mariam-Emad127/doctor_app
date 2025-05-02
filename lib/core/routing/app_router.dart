@@ -13,7 +13,8 @@ import 'package:doctor_app/presentation/onboarding/onboarding.dart';
 import 'package:doctor_app/presentation/social_screen/adding_post.dart';
 import 'package:doctor_app/presentation/social_screen/controller/post_cubit/post_cubit.dart';
 import 'package:doctor_app/presentation/social_screen/social_screen.dart';
-import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
+import 'package:doctor_app/presentation/splash_screen/splash_screen.dart';
+import 'package:doctor_app/presentation/user_profile/controller/profile_cubit.dart';
 import 'package:doctor_app/presentation/user_profile/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,15 +30,24 @@ class AppRouter {
             child: HomeScreen(),
           ),
         );
+   
+         case Routes.splash_screen:
+        return MaterialPageRoute(builder: (_) => SplashScreen());
+
+
+        
       case Routes.login:
-        return MaterialPageRoute(builder: (_) => Loginin());
-      /*
+      //  return MaterialPageRoute(builder: (_) => Loginin());
+      
+   
+      
+      
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   create: (context) => AuthCubit(),
                   child: Loginin(),
                 ));
-                */
+                
       case Routes.signin:
         //return MaterialPageRoute(builder: (_) => Loginin());
         return MaterialPageRoute(
@@ -50,8 +60,15 @@ class AppRouter {
 
       case Routes.social_screen:
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (context) => postCubit(),
+            builder: (_) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => postCubit(),
+                    ),
+                    BlocProvider(
+                      create: (context) => ProfileCubit()..getUserData(),
+                    ),
+                  ],
                   child: SocialScreen(),
                 ));
       case Routes.addingPost:
@@ -87,8 +104,9 @@ class AppRouter {
 
       case Routes.addWordDialog:
         return MaterialPageRoute(
-          builder: (_) => AddWordDialog(),);
- /*
+          builder: (_) => AddWordDialog(),
+        );
+      /*
  return MaterialPageRoute(
             builder: (_) => BlocProvider<NoteCubit>(
                   create: (context) => NoteCubit(),

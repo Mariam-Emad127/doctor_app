@@ -1,13 +1,13 @@
 import 'dart:io';
-import 'package:doctor_app/core/utils/string.dart';
-import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_cubit.dart';
-import 'package:doctor_app/presentation/user_profile/presentation/controller/profile_state.dart';
+import 'package:doctor_app/presentation/user_profile/controller/profile_cubit.dart';
+import 'package:doctor_app/presentation/user_profile/controller/profile_state.dart';
 import 'package:doctor_app/presentation/widget/circular_progress.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
+ 
 class Profile extends StatefulWidget {
   final String uid;
 
@@ -19,54 +19,131 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   File? file;
- 
-  @override
+  String photoUrl="";
+   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<ProfileCubit, ProfileState>(
+   
+      listener: (BuildContext context,  state) { 
+if(state is ProfieLoading){}
+if(state is ProfileError ){}
+ 
+if(state is ProfileSucess ){
+ setState(() {
   
-  return BlocBuilder<ProfileCubit,ProfileState>(
-    builder:(context,state){
-if(state is ProfieLoading ){
-     return     CircularProgress();
-}else if(state is ProfileSucess){
-   return Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 100,
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: InkWell(
-                onTap: () async {
+});
+
+}
+
+
+       },
+
+       
+      builder: (context, state) {
+      if (state is ProfieLoading) {
+        return CircularProgress();
+      } else if (state is ProfileSucess) {
+          photoUrl=state.user!.photoUrl??"";
+        return Scaffold(
+          backgroundColor: Colors.cyan,
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.cyan,
+          ),
+          body: Column(children: [
+            Expanded(
+              child: Stack(
+                  clipBehavior:
+                      Clip.none, // Allows the image to overflow the stack
+
+                  children: [
+                    Container(
+                      alignment: Alignment.topCenter,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(30))),
+                      height: double.infinity,
+                      width: double.infinity,
+                    ),
+                    Positioned(
+                      top: 80,
+                      left: 130,
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                              radius: 60,
+                              backgroundImage: NetworkImage(
+                              photoUrl 
+                                      )),
+                          Text(
+                            state.user!.username,
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 160,
+                      left: 237,
+                      child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.blueGrey),
+                          child: IconButton(
+                            icon: Icon(Icons.edit),
+                            color: Colors.blue,
+                              onPressed: () async {
+ 
+
                   var pickfile = await ImagePicker()
                       .pickImage(source: ImageSource.gallery);
                   File? file;
                   if (pickfile != null) {
                     file = File(pickfile.path);
-                  }
-                  //  String fileName = file!.split('/').last;
-                  ProfileCubit().uploadProfileImageToSupabas(
+                   await ProfileCubit().uploadProfileImageToSupabase(
                       fileName:
-                          "profile/${file!.path.split("/").last} ", //"pppp",  //,"file!.path ,
+                          "profile/${file.path.split("/").last} ",
+                           
                       file: file,
                       uid: FirebaseAuth.instance.currentUser!.uid);
+                  }
+                   
+                 setState(() {
+                   photoUrl= state.path;
+                 });  
+                 setState(() {
+                   context.read<ProfileCubit>().getUserData();
+                 });    
                 },
-                child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(
-                       state.user?.photoUrl ?? AppStrings.unknowmimage)),
-              ),
+                         /*
+                            onPressed: () async {
+                           await   pickImage();
+                              await context
+                                  .read<ProfileCubit>()
+                                  .uploadProfileImageToSupabase(
+                                      file: file!,
+                                      fileName:
+                                          "profile/${file!.path.split("/").last} ",
+                                      uid: FirebaseAuth
+                                          .instance.currentUser!.uid);
+                              setState(() {});
+                            },
+                         */
+                          )),
+                    ),
+                   
+                  ]),
             ),
-            const SizedBox(height: 20),
-            // Text(user?.username??"unknowm"),
-            Text(state.user!.username),
-          ],
-        ),
-      );
-}
-else{
-    return const Scaffold(
+          ]),
+        );
+ 
+      }
+      
+      
+      
+      else {
+        return const Scaffold(
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -78,9 +155,10 @@ else{
             ],
           ),
         );
-     
-}
- 
-  }  );
+      }
+    }, );
   }
+
+   
+  
 }

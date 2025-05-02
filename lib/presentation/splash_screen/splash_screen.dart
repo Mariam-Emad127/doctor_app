@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 children: [
                   //assest\medical-records.svg
                   SvgPicture.asset("assest/medical-records.svg",
-                  //color:  Colors.white
+                  color:  Colors.white
                   ),
                   SizedBox(height: 10,),
                   Text(

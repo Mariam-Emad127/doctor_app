@@ -5,6 +5,7 @@ import 'package:doctor_app/presentation/auth/controller/auth_cubit.dart';
 import 'package:doctor_app/presentation/notes/controller/cubit/note_cubit.dart';
 import 'package:doctor_app/presentation/notes/data/models/note_model.dart';
 import 'package:doctor_app/presentation/notes/data/note_type_adapter.dart';
+import 'package:doctor_app/presentation/user_profile/controller/profile_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,13 +44,15 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => AuthCubit()),
+       BlocProvider(create: (context) => ProfileCubit()..getUserData()),
+
         BlocProvider(create: (context) => NoteCubit()..fetchAllData())
         
         ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        initialRoute: Routes.login,
+        initialRoute: Routes.splash_screen,
         onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );

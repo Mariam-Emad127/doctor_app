@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:doctor_app/presentation/auth/login.dart';
 import 'package:flutter/material.dart';
 

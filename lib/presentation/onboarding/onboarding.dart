@@ -90,7 +90,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               children: [
                 const SizedBox(height: 50),
                 SizedBox(
-                  height: 400,
+                  height: 300,
                   child: Image.asset(
                     content[index].assest,
                   ),
@@ -99,7 +99,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 SizedBox(
                   width: 270,
                     child: Text(content[index].describtion,  style:TextStyle(color: Colors.grey,fontSize: 15),)),
-                SizedBox(height: 100,),
+                SizedBox(height: 50,),
                 SizedBox(
                   height: 50,
                   child: Row(
