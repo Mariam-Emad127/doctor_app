@@ -19,8 +19,7 @@ class AuthCubit extends Cubit<AuthState>{
     required String username,
   }) async {
     emit(AuthLoading()); // Emitting loading state
-   // String res = "success"; // Default result message
-
+ 
     try {
       // Check if any of the fields are empty
       if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty) {
@@ -79,8 +78,7 @@ class AuthCubit extends Cubit<AuthState>{
       );
       emit(AuthSucess());
       } catch (e) {
-     // print("2222222222222222222222$e");
-      emit(AuthError(e.toString()));
+       emit(AuthError(e.toString()));
   
     }
    }
