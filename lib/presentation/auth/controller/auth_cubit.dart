@@ -29,10 +29,6 @@ class AuthCubit extends Cubit<AuthState>{
           email: email,
           password: password,
         );
-
-//        print('User ID: ${credential.user!.uid}'); // Print UID for debugging
-
-        // Save additional user data in Firestore
         await FirebaseFirestore.instance
             .collection("users")
             .doc(credential.user!.uid)
@@ -71,8 +67,7 @@ class AuthCubit extends Cubit<AuthState>{
   Future<void> SignInWithEmailAndPassword({required String email,required String password})async {
      emit(AuthLoading());
     try {
- //UserCredential userCredential = await 
-  FirebaseAuth.instance.signInWithEmailAndPassword(
+   FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
