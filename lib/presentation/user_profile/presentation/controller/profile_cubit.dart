@@ -32,11 +32,8 @@ class ProfileCubit extends Cubit<ProfileState>{
       }
 */
       final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
-     // print("File uploaded successfully: $publicUrl");
-     // String docId=const Uuid().v1();
       FirebaseFirestore.instance.collection( "users").doc(uid).update({"photoUrl":publicUrl});
-      //emit(ProfileSucess( ));
-      return publicUrl;
+       return publicUrl;
     }
     catch (e) {
       emit(ProfileError(e.toString()));
@@ -90,20 +87,12 @@ String username=userData.username;
       // Upload the file to the Supabase storage bucket
       //final response =
        await supabase.storage.from("Doctor").upload("$fileName/", file);
-   /*
-      if (response != null) {
-        print('Image uploaded successfully');
-      }
-      else {
-        print('Errorrrrrrr');
-      }
-*/
+ 
       final publicUrl = supabase.storage.from("Doctor").getPublicUrl("$fileName/");
       print("File uploaded successfully: $publicUrl");
       //String docId=const Uuid().v1();
-      FirebaseFirestore.instance.collection( "users").doc(uid).update({"photoUrl":publicUrl});// .collection("photourl").doc().set( {"photoUrl":publicUrl});
-      //emit(ProfileSucess( ));
-      return publicUrl;
+      FirebaseFirestore.instance.collection( "users").doc(uid).update({"photoUrl":publicUrl}); 
+       return publicUrl;
     }
     catch (e) {
       emit(ProfileError(e.toString()));
