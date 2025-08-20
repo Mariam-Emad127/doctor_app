@@ -52,29 +52,7 @@ class postCubit extends Cubit<postState> {
     }
   }
 
-/*
-  Future<void> uploadPostImageToSupabase({
-    required File file,
-    required String fileName,
-    required String postId
-    }) async {
-    try {
-      emit(postLoading());
-      //final response =
-      await supabase.storage.from("Doctor").upload("$fileName/${DateTime.now()}", file);
-       // publicUrl = supabase.storage.from("Doctor").getPublicUrl("WhatsApp Image 2025-04-27 at 21.58.11_edc2f300.jpg");   
-       print("File uploaded successfully: $publicUrl");
-      FirebaseFirestore.instance.collection("post").doc(postId).update({
-        "photoUrl": publicUrl
-      });
- 
-    } catch (e) {
-     // emit(postError(e.toString()));
-      print("Error uploading to Supabase: $e");
-     }
-  }
 
-*/
 
   ///Delete post
   Future<void> DelletePost(String postId) async {
@@ -139,3 +117,26 @@ class postCubit extends Cubit<postState> {
     }
   }
 }
+/*
+  Future<void> uploadPostImageToSupabase({
+    required File file,
+    required String fileName,
+    required String postId
+    }) async {
+    try {
+      emit(postLoading());
+      //final response =
+      await supabase.storage.from("Doctor").upload("$fileName/${DateTime.now()}", file);
+       // publicUrl = supabase.storage.from("Doctor").getPublicUrl("WhatsApp Image 2025-04-27 at 21.58.11_edc2f300.jpg");   
+       print("File uploaded successfully: $publicUrl");
+      FirebaseFirestore.instance.collection("post").doc(postId).update({
+        "photoUrl": publicUrl
+      });
+ 
+    } catch (e) {
+     // emit(postError(e.toString()));
+      print("Error uploading to Supabase: $e");
+     }
+  }
+
+*/
